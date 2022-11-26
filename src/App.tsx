@@ -1,10 +1,9 @@
-import { LineChart } from "./components";
+import { Dashboard } from "./pages/Dashboard";
 
 function App() {
   return (
-    <div className="text-red-500">
-      line chart
-      <LineChart />
+    <div className="">
+      <Dashboard />
     </div>
   );
 }
