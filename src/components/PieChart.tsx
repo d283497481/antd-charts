@@ -1,4 +1,4 @@
-import { Pie } from "@ant-design/plots";
+import { Pie, PieConfig } from "@ant-design/plots";
 
 const data = [
   {
@@ -50,7 +50,7 @@ export const PieChartWithLabelAction = () => {
 };
 
 export const SimplePieChart = () => {
-  const config = {
+  const config: PieConfig = {
     appendPadding: 10,
     data,
     angleField: "value",
