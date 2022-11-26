@@ -1,5 +1,6 @@
 import React from "react";
 import { Line } from "@ant-design/charts";
+import { ShowDataContainer } from "./dashboard";
 
 export const LineChart: React.FC = () => {
   const data = [
@@ -23,5 +24,9 @@ export const LineChart: React.FC = () => {
       shape: "diamond",
     },
   };
-  return <Line {...config} />;
+  return (
+    <ShowDataContainer data={data}>
+      <Line {...config} />
+    </ShowDataContainer>
+  );
 };

@@ -1,4 +1,5 @@
 import { Gauge, GaugeConfig } from "@ant-design/plots";
+import { ShowDataContainer } from "./dashboard";
 
 export const GaugeChart = () => {
   const config: GaugeConfig = {
@@ -38,7 +39,11 @@ export const GaugeChart = () => {
       },
     },
   };
-  return <Gauge {...config} />;
+  return (
+    <ShowDataContainer data={{ percentage: 0.75 }}>
+      <Gauge {...config} />
+    </ShowDataContainer>
+  );
 };
 
 export const MeterGauge = () => {
@@ -71,5 +76,9 @@ export const MeterGauge = () => {
       },
     },
   };
-  return <Gauge {...config} />;
+  return (
+    <ShowDataContainer data={{ percentage: 0.75 }}>
+      <Gauge {...config} />
+    </ShowDataContainer>
+  );
 };

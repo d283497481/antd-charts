@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Area, AreaConfig } from "@ant-design/plots";
+import { ShowDataContainer } from "./dashboard";
 
 export const StackedAreaChart = () => {
   const [data, setData] = useState([]);
 
+  const [showData, setIsEdit] = useState(false);
   useEffect(() => {
     asyncFetch();
   }, []);
@@ -38,7 +40,7 @@ export const StackedAreaChart = () => {
     },
     yAxis: {
       label: {
-        // formats 1000 -> 1,000
+        // formats 1000 -> 1,
         formatter: (v) =>
           `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
       },
@@ -48,7 +50,11 @@ export const StackedAreaChart = () => {
     },
   };
 
-  return <Area {...config} />;
+  return (
+    <ShowDataContainer data={data}>
+      <Area {...config} />
+    </ShowDataContainer>
+  );
 };
 
 // percentage chart
@@ -89,5 +95,9 @@ export const PercentageAreaChart = () => {
     },
   };
 
-  return <Area {...config} />;
+  return (
+    <ShowDataContainer data={data}>
+      <Area {...config} />
+    </ShowDataContainer>
+  );
 };

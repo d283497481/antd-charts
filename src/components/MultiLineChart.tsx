@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Line } from "@ant-design/plots";
+import { ShowDataContainer } from "./dashboard";
 
 export const MultiLineChart = () => {
   const [data, setData] = useState([]);
@@ -35,5 +36,9 @@ export const MultiLineChart = () => {
     },
   };
 
-  return <Line {...config} />;
+  return (
+    <ShowDataContainer data={data}>
+      <Line {...config} />
+    </ShowDataContainer>
+  );
 };

@@ -1,4 +1,5 @@
 import { Pie, PieConfig } from "@ant-design/plots";
+import { ShowDataContainer } from "./dashboard";
 
 const data = [
   {
@@ -46,7 +47,11 @@ export const PieChartWithLabelAction = () => {
       },
     ],
   };
-  return <Pie {...config} />;
+  return (
+    <ShowDataContainer data={data}>
+      <Pie {...config} />
+    </ShowDataContainer>
+  );
 };
 
 export const SimplePieChart = () => {
@@ -65,5 +70,9 @@ export const SimplePieChart = () => {
       },
     ],
   };
-  return <Pie {...config} />;
+  return (
+    <ShowDataContainer data={data}>
+      <Pie {...config} />
+    </ShowDataContainer>
+  );
 };
