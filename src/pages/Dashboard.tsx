@@ -4,6 +4,8 @@ import {
   LineChart,
   MultiLineChart,
   PercentageAreaChart,
+  PieChartWithLabelAction,
+  SimplePieChart,
   StackedAreaChart,
 } from "../components";
 
@@ -38,7 +40,10 @@ export const Dashboard = (props: Props) => {
           className="m-3 min-w-[48%]"
           maxW="lg"
           header={
-            <DashCardHeader color="violet" title="# Percentage Area chart" />
+            <DashCardHeader
+              color="text-violet-600 bg-violet-200"
+              title="# Percentage Area chart"
+            />
           }
         >
           <div className="w-full">
@@ -48,9 +53,43 @@ export const Dashboard = (props: Props) => {
         <Card
           maxW="lg"
           className="m-3 min-w-[48%]"
-          header={<DashCardHeader color="red" title="# Stacked Area chart" />}
+          header={
+            <DashCardHeader
+              color="text-violet-600 bg-violet-200"
+              title="# Stacked Area chart"
+            />
+          }
         >
           <StackedAreaChart />
+        </Card>
+      </div>
+      {/* pie charts */}
+      <div className="flex mt-2">
+        <Card
+          className="m-3 min-w-[48%]"
+          maxW="lg"
+          header={
+            <DashCardHeader
+              color="text-orange-600 bg-orange-200"
+              title="# Pie chart"
+            />
+          }
+        >
+          <div className="w-full">
+            <SimplePieChart />
+          </div>
+        </Card>
+        <Card
+          maxW="lg"
+          className="m-3 min-w-[48%]"
+          header={
+            <DashCardHeader
+              color="text-orange-600 bg-orange-200"
+              title="# Pie chart with label actions"
+            />
+          }
+        >
+          <PieChartWithLabelAction />
         </Card>
       </div>
     </div>
