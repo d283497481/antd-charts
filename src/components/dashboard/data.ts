@@ -1,18 +1,18 @@
 const data = [
   {
-    year: '2022-12-0',
-    value: 0,
-    category: '项目3',
+    day: '2022-12-01',
+    value: 10, //剩余工时
+    name: '项目1',
   },
   {
-    year: '2022-12-0',
+    year: '2022-12-01',
     value: 54,
     category: '项目2',
   },
   {
-    year: '2022-12-0',
+    year: '2022-12-01',
     value: 0,
-    category: '项目1',
+    category: '项目3',
   },
   {
     year: '2022-12-0',

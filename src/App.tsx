@@ -1,10 +1,12 @@
-import { Dashboard } from "./pages/Dashboard";
+import { ConfigProvider } from 'antd';
+import { Index } from './pages/Index';
+import zhCN from 'antd/locale/zh_CN';
 
 function App() {
   return (
-    <div className="">
-      <Dashboard />
-    </div>
+    <ConfigProvider locale={zhCN}>
+      <Index />
+    </ConfigProvider>
   );
 }
 
