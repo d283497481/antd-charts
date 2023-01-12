@@ -7,3 +7,4 @@ export * from './Gauge';
 export * from './Gauge';
 export * from './TableList';
 export * from './ColumnChart';
+export * from './TableListTotal';
