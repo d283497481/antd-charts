@@ -8,7 +8,7 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
     {
       title: '项目名称',
       dataIndex: 'name',
-      width: 150,
+      width: 300,
     },
     {
       title: '开始时间',
@@ -94,7 +94,7 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
       rowKey="name"
       columns={columns}
       dataSource={data}
-      scroll={{ y: 3080 }}
+      scroll={{ y: 480 }}
     />
   );
 };

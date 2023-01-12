@@ -7,6 +7,7 @@ import {
   LineChart,
   ColumnChart,
   TableListTotal,
+  MultiLineChart,
   TableList,
 } from '../components';
 import request from '../components/dashboard/request';
@@ -61,18 +62,21 @@ export const Index = () => {
     });
   };
   const onReset = () => {
+    setSearchTime({
+      from: initialValues.dateTime[0].format('YYYY-MM-DD'),
+      to: initialValues.dateTime[1].format('YYYY-MM-DD'),
+    });
     form?.resetFields();
+  };
+  const onSearch = () => {
+    const values = form.getFieldValue('project');
+    setValue(values);
   };
   const selectProps: SelectProps = {
     mode: 'multiple',
-    style: { width: '200px' },
-    value,
+    style: { width: '500px' },
     options,
-    onChange: (newValue: string[]) => {
-      setValue(newValue);
-    },
     placeholder: '请选择',
-    maxTagCount: 'responsive',
   };
   const dataInfo = options.filter((item: any) => value.includes(item.value));
   console.log(dataInfo);
@@ -87,7 +91,10 @@ export const Index = () => {
             <Select {...selectProps} />
           </Form.Item>
         </Form>
-        <Button danger onClick={onReset}>
+        <Button type="primary" danger onClick={onSearch}>
+          搜索
+        </Button>
+        <Button danger className="ml-5" onClick={onReset}>
           重置
         </Button>
       </span>
@@ -104,7 +111,7 @@ export const Index = () => {
           }
         >
           <div className="w-full">
-            <LineChart />
+            <LineChart dataInfo={dataInfo} />
           </div>
         </Card>
         <Card
@@ -132,7 +139,7 @@ export const Index = () => {
               />
             }
           >
-            <TableList />
+            <MultiLineChart dataInfo={dataInfo} />
           </Card>
           <Card
             maxW="lg"

@@ -61,10 +61,11 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
           formData.append(key, searchTime[key]);
         }
         formData.append('project', project);
-        // const res = await request.post('/zzyDashboard-d1d3', formData);
-        // setData(res?.data || []);
+        const res = await request.post('/zzyDashboard-d1d3', formData);
+        setData(res?.data || []);
       } catch (error) {
         console.error(error);
+        setData([]);
         // setData([
         //   {
         //     id: '279',
@@ -567,5 +568,5 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
     }
   }, [searchTime, dataInfo]);
 
-  return <Table columns={columns} dataSource={data} scroll={{ y: 280 }} />;
+  return <Table columns={columns} dataSource={data} scroll={{ y: 480 }} />;
 };
