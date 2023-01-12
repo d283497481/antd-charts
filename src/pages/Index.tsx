@@ -12,7 +12,7 @@ import {
 } from '../components';
 import request from '../components/dashboard/request';
 import dayjs from 'dayjs';
-import data from './mock/d1';
+// import data from './mock/d1';
 const { RangePicker } = DatePicker;
 
 const initialValues: any = {
@@ -39,7 +39,7 @@ export const Index = () => {
       } catch (error) {
         console.error(error);
       }
-      const list = (res?.data ?? data).map((item: any) => {
+      const list = (res?.data ?? []).map((item: any) => {
         values.push(item.id);
         return {
           ...item,
