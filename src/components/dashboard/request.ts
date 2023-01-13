@@ -1,45 +1,34 @@
-//@ts-ignore
-import Flyio from 'flyio/dist/npm/fly';
+import axios from 'axios';
 
-const request = new Flyio();
+/**
+ * 配置 request 请求时的默认参数
+ */
+const request = axios.create({
+  baseURL: '/zentao',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  withCredentials: false,
+  responseType: 'json',
+  responseEncoding: 'utf8',
+});
 
-// 设置请求基地址
-request.config.baseURL = '/zentao';
-request.config.withCredentials = true;
-request.config.timeout = 10000; // 超时时间 10s
-
-// 统一请求拦截器
-const requestInterceptor = (request: { headers: any; body: any }) => {
-  // 泳道标记，开发者入参优先
-  request.headers = {
-    'content-type': 'multipart/form-data',
-  };
-  // 开发者入参优先与公共默认参数
-  request.body = {
-    ...request.body,
-  };
-
-  return request;
-};
-
-// 统一响应拦截器
-const responseInterceptor = (response: { data: any; status: any }) => {
-  const { data, status } = response;
-  if (status === 200) {
-    return {
-      ...data,
-    };
+request.interceptors.request.use(
+  config => {
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
   }
+);
 
-  return Promise.reject(data);
-};
+request.interceptors.response.use(
+  response => {
+    return Promise.resolve(response);
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
-// 统一异常拦截器
-const errorInterceptor = (err: any) => {
-  console.log('网络异常');
-  console.log(err);
-};
-
-request.interceptors.request.use(requestInterceptor);
-request.interceptors.response.use(responseInterceptor, errorInterceptor);
 export default request;

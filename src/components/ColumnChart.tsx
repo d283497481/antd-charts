@@ -8,7 +8,7 @@ export const ColumnChart = (project: any) => {
   useEffect(() => {
     const getDetail = async () => {
       try {
-        const res: any = await request.post('/zzyDashboard-d1d4');
+        const res: any = await request.post('/zzyDashboard-d1d4', {});
         const list = res
           ? (res || [])?.map((item: any) => {
               return {

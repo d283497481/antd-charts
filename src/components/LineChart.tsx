@@ -82,9 +82,9 @@ export const LineChart = ({ dataInfo = [] }: any) => {
   useEffect(() => {
     const getDetail = async (project: string, items: any) => {
       try {
-        let formData = new FormData();
-        formData.append('project', project);
-        const res: any = await request.post('/zzyDashboard-d1d1', formData);
+        const res: any = await request.post('/zzyDashboard-d1d1', {
+          project,
+        });
         let total = 0;
         return (res || []).map((item: any) => {
           total += Number(item?.consumed || 0);

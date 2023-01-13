@@ -62,12 +62,10 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
   useEffect(() => {
     const getDetail = async (project: string, items: any) => {
       try {
-        let formData = new FormData();
-        for (let key in searchTime) {
-          formData.append(key, searchTime[key]);
-        }
-        formData.append('project', project);
-        const res: any = await request.post('/zzyDashboard-d1d5', formData);
+        const res: any = await request.post('/zzyDashboard-d1d5', {
+          ...searchTime,
+          project,
+        });
         return res ? { ...items, ...(res?.[0] || {}) } : items;
       } catch (error) {
         console.error(error);

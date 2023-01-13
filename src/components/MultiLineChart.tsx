@@ -1184,9 +1184,7 @@ export const MultiLineChart = ({ dataInfo }: any) => {
   useEffect(() => {
     const getDetail = async (project: string) => {
       try {
-        let formData = new FormData();
-        formData.append('project', project);
-        const res: any = await request.post('/zzyDashboard-d1d2', formData);
+        const res: any = await request.post('/zzyDashboard-d1d2', { project });
         let total: any = {};
         const dataInfos: any = res
           ? (res || []).map((item: any) => {

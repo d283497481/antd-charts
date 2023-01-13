@@ -24,6 +24,9 @@ export const Index = () => {
   const [searchTime, setSearchTime] = useState<any>({
     from: initialValues.dateTime[0].format('YYYY-MM-DD'),
     to: initialValues.dateTime[1].format('YYYY-MM-DD'),
+    role: '',
+    project: '',
+    projectname: '',
   });
   const [options, setOptions] = useState<any>([]);
   useEffect(() => {
@@ -31,11 +34,7 @@ export const Index = () => {
     let res: any = [];
     const getDetail = async () => {
       try {
-        let formData = new FormData();
-        for (let key in searchTime) {
-          formData.append(key, searchTime[key]);
-        }
-        res = await request.post('/zzyDashboard-d1', formData);
+        res = await request.post('/zzyDashboard-d1', searchTime);
         console.log(res);
       } catch (error) {
         console.error(error);
