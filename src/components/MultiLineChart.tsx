@@ -1186,19 +1186,19 @@ export const MultiLineChart = ({ dataInfo }: any) => {
       try {
         let formData = new FormData();
         formData.append('project', project);
-        const res = await request.post('/zzyDashboard-d1d2', formData);
+        const res: any = await request.post('/zzyDashboard-d1d2', formData);
         let total: any = {};
-        const dataInfos: any = (res?.data ?? []).map((item: any) => {
-          if (!total[item.stagename]) {
-            total[item.stagename] = Number(item.consumed);
+        const dataInfos: any = (res || []).map((item: any) => {
+          if (!total[item?.stagename]) {
+            total[item?.stagename] = Number(item?.consumed || 0);
           } else {
-            total[item.stagename] += Number(item.consumed);
+            total[item?.stagename] += Number(item?.consumed || 0);
           }
 
           return {
-            date: item.date,
-            stagename: item.stagename,
-            value: Number(item.estimate) - total[item.stagename],
+            date: item?.date,
+            stagename: item?.stagename,
+            value: Number(item?.estimate || 0) - total[item?.stagename],
           };
         });
         setData(dataInfos);
@@ -1218,6 +1218,7 @@ export const MultiLineChart = ({ dataInfo }: any) => {
         //     value: Number(item.estimate) - total[item.stagename],
         //   };
         // });
+        // setData(dataInfos);
         setData([]);
       }
     };
@@ -1242,6 +1243,11 @@ export const MultiLineChart = ({ dataInfo }: any) => {
         // formatting values as thousands 1500=> 1,500
         formatter: (v: string) =>
           `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, s => `${s},`),
+      },
+    },
+    point: {
+      shape: () => {
+        return 'circle';
       },
     },
   };

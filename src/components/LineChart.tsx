@@ -84,20 +84,20 @@ export const LineChart = ({ dataInfo = [] }: any) => {
       try {
         let formData = new FormData();
         formData.append('project', project);
-        const res = await request.post('/zzyDashboard-d1d1', formData);
+        const res: any = await request.post('/zzyDashboard-d1d1', formData);
         let total = 0;
-        return (res?.data || []).map((item: any, index: number) => {
-          total += Number(item.consumed);
+        return (res || []).map((item: any) => {
+          total += Number(item?.consumed);
           return {
-            date: item.date,
-            name: items.name,
-            value: Number(item.estimate) - total,
+            date: item?.date,
+            name: items?.name,
+            value: Number(item?.estimate || 0) - total,
           };
         });
       } catch (error) {
         console.error(error);
         // let total = 0;
-        // return defaultData.map((item: any, index: number) => {
+        // return defaultData.map((item: any) => {
         //   total += Number(item.consumed);
         //   return {
         //     date: item.date,
@@ -147,6 +147,11 @@ export const LineChart = ({ dataInfo = [] }: any) => {
     slider: {
       start: 0.1,
       end: 0.5,
+    },
+    point: {
+      shape: () => {
+        return 'circle';
+      },
     },
     color: COLOR_PLATE_10,
   };

@@ -7,8 +7,6 @@ import axios, { AxiosRequestConfig } from 'axios';
 const request = axios.create({
   baseURL: '/zentao',
   headers: {
-    Cookie:
-      'zentaosid=f2677c960c9946a290c34e7f2f9dfe25; lang=zh-cn; device=desktop; theme=default; tab=zzyDashboard; windowWidth=1294; windowHeight=164',
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
   },
   withCredentials: true,

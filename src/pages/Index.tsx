@@ -39,12 +39,12 @@ export const Index = () => {
       } catch (error) {
         console.error(error);
       }
-      const list = (res?.data ?? []).map((item: any) => {
-        values.push(item.id);
+      const list = (res ?? []).map((item: any) => {
+        values.push(item?.id);
         return {
-          ...item,
-          label: item.name,
-          value: item.id,
+          ...(item || {}),
+          label: item?.name,
+          value: item?.id,
         };
       });
       setValue(values);

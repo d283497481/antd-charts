@@ -26,16 +26,15 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
       width: 150,
     },
     {
-      title:
-        '档期进展（%）（1- 所有任务总的剩余工时/项目所有的任务的计划时间）',
+      title: '档期进展（%）',
       dataIndex: 'progress',
       render: val => `${(Number(val || 0) * 100).toFixed(2)}%`,
-      width: 400,
+      width: 120,
     },
     {
-      title: '已消耗工时（项目所有的任务的消耗工时累加）',
+      title: '已消耗工时',
       dataIndex: 'consumed',
-      width: 300,
+      width: 120,
     },
     {
       title: '剩余预计工时',
@@ -43,16 +42,15 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
       width: 150,
     },
     {
-      title:
-        '总计划工时（项目所有的任务的计划时间，某任务计划0的话，就是总投入+最后剩余）',
+      title: '总计划工时',
       dataIndex: 'estimate',
-      width: 400,
+      width: 120,
     },
     {
-      title: '已消耗工时占比（%）（已消耗工时/项目所有的任务的计划时间）',
+      title: '已消耗工时占比（%）',
       dataIndex: 'consumedper',
       render: val => `${(Number(val || 0) * 100).toFixed(2)}%`,
-      width: 300,
+      width: 200,
     },
     {
       title: '当前项目工程师数目',
@@ -69,8 +67,8 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
           formData.append(key, searchTime[key]);
         }
         formData.append('project', project);
-        const res = await request.post('/zzyDashboard-d1d5', formData);
-        return { ...items, ...(res?.data?.[0] || {}) };
+        const res: any = await request.post('/zzyDashboard-d1d5', formData);
+        return { ...items, ...(res?.[0] || {}) };
       } catch (error) {
         console.error(error);
         return items;
@@ -94,7 +92,7 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
       rowKey="name"
       columns={columns}
       dataSource={data}
-      scroll={{ y: 480 }}
+      scroll={{ y: 300 }}
     />
   );
 };

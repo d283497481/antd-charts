@@ -8,16 +8,17 @@ export const ColumnChart = (project: any) => {
   useEffect(() => {
     const getDetail = async () => {
       try {
-        const res = await request.post('/zzyDashboard-d1d4');
-        const list = (res?.data || []).map((item: any) => {
+        const res: any = await request.post('/zzyDashboard-d1d4');
+        const list = (res || [])?.map((item: any) => {
           return {
-            ...item,
-            value: Number(item.c),
+            ...(item || {}),
+            value: Number(item?.c || 0),
           };
         });
         setData(list);
       } catch (error) {
         console.error(error);
+        setData([]);
       }
       // const data = [
       //   {
@@ -168,13 +169,13 @@ export const ColumnChart = (project: any) => {
       //     projectname: '[FZZCRIT2022021-2A]CRRC FDC Project 2022',
       //   },
       // ];
-      // const list = data.map((item: any) => {
+      // const lists = data.map((item: any) => {
       //   return {
       //     ...item,
       //     value: Number(item.c),
       //   };
       // });
-      // setData(list);
+      // setData(lists);
     };
     if (project) {
       getDetail();
