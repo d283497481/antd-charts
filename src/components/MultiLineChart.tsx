@@ -1188,19 +1188,21 @@ export const MultiLineChart = ({ dataInfo }: any) => {
         formData.append('project', project);
         const res: any = await request.post('/zzyDashboard-d1d2', formData);
         let total: any = {};
-        const dataInfos: any = (res || []).map((item: any) => {
-          if (!total[item?.stagename]) {
-            total[item?.stagename] = Number(item?.consumed || 0);
-          } else {
-            total[item?.stagename] += Number(item?.consumed || 0);
-          }
+        const dataInfos: any = res
+          ? (res || []).map((item: any) => {
+              if (!total[item?.stagename]) {
+                total[item?.stagename] = Number(item?.consumed || 0);
+              } else {
+                total[item?.stagename] += Number(item?.consumed || 0);
+              }
 
-          return {
-            date: item?.date,
-            stagename: item?.stagename,
-            value: Number(item?.estimate || 0) - total[item?.stagename],
-          };
-        });
+              return {
+                date: item?.date,
+                stagename: item?.stagename,
+                value: Number(item?.estimate || 0) - total[item?.stagename],
+              };
+            })
+          : [];
         setData(dataInfos);
       } catch (error) {
         console.error(error);

@@ -87,7 +87,7 @@ export const LineChart = ({ dataInfo = [] }: any) => {
         const res: any = await request.post('/zzyDashboard-d1d1', formData);
         let total = 0;
         return (res || []).map((item: any) => {
-          total += Number(item?.consumed);
+          total += Number(item?.consumed || 0);
           return {
             date: item?.date,
             name: items?.name,

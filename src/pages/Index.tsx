@@ -28,7 +28,7 @@ export const Index = () => {
   const [options, setOptions] = useState<any>([]);
   useEffect(() => {
     const values: any = [];
-    let res: any = {};
+    let res: any = [];
     const getDetail = async () => {
       try {
         let formData = new FormData();
@@ -36,17 +36,20 @@ export const Index = () => {
           formData.append(key, searchTime[key]);
         }
         res = await request.post('/zzyDashboard-d1', formData);
+        console.log(res);
       } catch (error) {
         console.error(error);
       }
-      const list = (res ?? []).map((item: any) => {
-        values.push(item?.id);
-        return {
-          ...(item || {}),
-          label: item?.name,
-          value: item?.id,
-        };
-      });
+      const list = res
+        ? (res ?? []).map((item: any) => {
+            values.push(item?.id);
+            return {
+              ...(item || {}),
+              label: item?.name,
+              value: item?.id,
+            };
+          })
+        : [];
       setValue(values);
       setOptions(list);
     };

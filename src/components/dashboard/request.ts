@@ -1,37 +1,45 @@
-import { message } from 'antd';
-import axios, { AxiosRequestConfig } from 'axios';
+//@ts-ignore
+import Flyio from 'flyio/dist/npm/fly';
 
-/**
- * 配置 request 请求时的默认参数
- */
-const request = axios.create({
-  baseURL: '/zentao',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-  },
-  withCredentials: true,
-});
+const request = new Flyio();
 
-request.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
-    return config;
-  },
-  null,
-  // @ts-ignore
-  { synchronous: true }
-);
+// 设置请求基地址
+request.config.baseURL = '/zentao';
+request.config.withCredentials = true;
+request.config.timeout = 10000; // 超时时间 10s
 
-request.interceptors.response.use(
-  async response => {
-    return response;
-  },
-  error => {
-    const { response } = error || {};
-    const { msg } = response?.data ?? {};
-    msg && message.error(msg);
+// 统一请求拦截器
+const requestInterceptor = (request: { headers: any; body: any }) => {
+  // 泳道标记，开发者入参优先
+  request.headers = {
+    'content-type': 'multipart/form-data',
+  };
+  // 开发者入参优先与公共默认参数
+  request.body = {
+    ...request.body,
+  };
 
-    return Promise.reject(response);
+  return request;
+};
+
+// 统一响应拦截器
+const responseInterceptor = (response: { data: any; status: any }) => {
+  const { data, status } = response;
+  if (status === 200) {
+    return {
+      ...data,
+    };
   }
-);
 
+  return Promise.reject(data);
+};
+
+// 统一异常拦截器
+const errorInterceptor = (err: any) => {
+  console.log('网络异常');
+  console.log(err);
+};
+
+request.interceptors.request.use(requestInterceptor);
+request.interceptors.response.use(responseInterceptor, errorInterceptor);
 export default request;

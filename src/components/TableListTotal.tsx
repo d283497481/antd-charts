@@ -68,7 +68,7 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
         }
         formData.append('project', project);
         const res: any = await request.post('/zzyDashboard-d1d5', formData);
-        return { ...items, ...(res?.[0] || {}) };
+        return res ? { ...items, ...(res?.[0] || {}) } : items;
       } catch (error) {
         console.error(error);
         return items;

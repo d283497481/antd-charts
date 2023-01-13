@@ -9,12 +9,14 @@ export const ColumnChart = (project: any) => {
     const getDetail = async () => {
       try {
         const res: any = await request.post('/zzyDashboard-d1d4');
-        const list = (res || [])?.map((item: any) => {
-          return {
-            ...(item || {}),
-            value: Number(item?.c || 0),
-          };
-        });
+        const list = res
+          ? (res || [])?.map((item: any) => {
+              return {
+                ...(item || {}),
+                value: Number(item?.c || 0),
+              };
+            })
+          : [];
         setData(list);
       } catch (error) {
         console.error(error);
