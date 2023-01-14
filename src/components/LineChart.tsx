@@ -96,15 +96,15 @@ export const LineChart = ({ dataInfo = [] }: any) => {
         });
       } catch (error) {
         console.error(error);
-        // let total = 0;
-        // return defaultData.map((item: any) => {
-        //   total += Number(item.consumed);
-        //   return {
-        //     date: item.date,
-        //     name: items.name,
-        //     value: Number(item.estimate) - total,
-        //   };
-        // });
+        let total = 0;
+        return defaultData.map((item: any) => {
+          total += Number(item.consumed);
+          return {
+            date: item.date,
+            name: items.name,
+            value: Number(item.estimate) - total,
+          };
+        });
         return [];
       }
     };
@@ -136,6 +136,7 @@ export const LineChart = ({ dataInfo = [] }: any) => {
     data,
     xField: 'date',
     yField: 'value',
+    autoFit: true,
     seriesField: 'name',
     yAxis: {
       label: {
@@ -148,11 +149,11 @@ export const LineChart = ({ dataInfo = [] }: any) => {
       start: 0.1,
       end: 0.5,
     },
-    point: {
-      shape: () => {
-        return 'circle';
-      },
-    },
+    // point: {
+    //   shape: () => {
+    //     return 'circle';
+    //   },
+    // },
     color: COLOR_PLATE_10,
   };
   return <Line {...config} />;

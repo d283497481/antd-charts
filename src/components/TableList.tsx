@@ -71,5 +71,5 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
     }
   }, [searchTime, dataInfo]);
 
-  return <Table columns={columns} dataSource={data} scroll={{ y: 280 }} />;
+  return <Table columns={columns} dataSource={data} scroll={{ y: 400 }} />;
 };

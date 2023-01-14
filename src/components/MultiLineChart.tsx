@@ -1204,21 +1204,21 @@ export const MultiLineChart = ({ dataInfo }: any) => {
         setData(dataInfos);
       } catch (error) {
         console.error(error);
-        // let total: any = {};
-        // const dataInfos: any = defaultData.map((item: any) => {
-        //   if (!total[item.stagename]) {
-        //     total[item.stagename] = Number(item.consumed);
-        //   } else {
-        //     total[item.stagename] += Number(item.consumed);
-        //   }
+        let total: any = {};
+        const dataInfos: any = defaultData.map((item: any) => {
+          if (!total[item.stagename]) {
+            total[item.stagename] = Number(item.consumed);
+          } else {
+            total[item.stagename] += Number(item.consumed);
+          }
 
-        //   return {
-        //     date: item.date,
-        //     stagename: item.stagename,
-        //     value: Number(item.estimate) - total[item.stagename],
-        //   };
-        // });
-        // setData(dataInfos);
+          return {
+            date: item.date,
+            stagename: item.stagename,
+            value: Number(item.estimate) - total[item.stagename],
+          };
+        });
+        setData(dataInfos);
         setData([]);
       }
     };
@@ -1230,6 +1230,7 @@ export const MultiLineChart = ({ dataInfo }: any) => {
     data,
     xField: 'date',
     yField: 'value',
+    autoFit: true,
     seriesField: 'stagename',
     xAxis: {
       type: 'time',
@@ -1245,11 +1246,11 @@ export const MultiLineChart = ({ dataInfo }: any) => {
           `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, s => `${s},`),
       },
     },
-    point: {
-      shape: () => {
-        return 'circle';
-      },
-    },
+    // point: {
+    //   shape: () => {
+    //     return 'circle';
+    //   },
+    // },
   };
 
   return <Line {...config} />;

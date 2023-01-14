@@ -29,7 +29,7 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
       title: '档期进展（%）',
       dataIndex: 'progress',
       render: val => `${(Number(val || 0) * 100).toFixed(2)}%`,
-      width: 120,
+      width: 140,
     },
     {
       title: '已消耗工时',
@@ -90,7 +90,7 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
       rowKey="name"
       columns={columns}
       dataSource={data}
-      scroll={{ y: 300 }}
+      scroll={{ y: 400 }}
     />
   );
 };

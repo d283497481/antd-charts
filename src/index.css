@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.fullscreen.fullscreen-enabled {
+  background: #fff;
+  padding: 50px 24px;
+}

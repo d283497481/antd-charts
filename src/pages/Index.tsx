@@ -9,10 +9,11 @@ import {
   TableListTotal,
   MultiLineChart,
   TableList,
+  AreaChart,
 } from '../components';
 import request from '../components/dashboard/request';
 import dayjs from 'dayjs';
-// import data from './mock/d1';
+import data from './mock/d1';
 const { RangePicker } = DatePicker;
 
 const initialValues: any = {
@@ -39,16 +40,24 @@ export const Index = () => {
       } catch (error) {
         console.error(error);
       }
-      const list = res
-        ? (res?.data ?? []).map((item: any) => {
-            values.push(item?.id);
-            return {
-              ...(item || {}),
-              label: item?.name,
-              value: item?.id,
-            };
-          })
-        : [];
+      // const list = res
+      //   ? (res?.data ?? []).map((item: any) => {
+      //       values.push(item?.id);
+      //       return {
+      //         ...(item || {}),
+      //         label: item?.name,
+      //         value: item?.id,
+      //       };
+      //     })
+      //   : [];
+      const list = data.map((item: any) => {
+        values.push(item?.id);
+        return {
+          ...(item || {}),
+          label: item?.name,
+          value: item?.id,
+        };
+      });
       setValue(values);
       setOptions(list);
     };
@@ -133,7 +142,7 @@ export const Index = () => {
         <div className="flex mt-2 w-full px-5">
           <Card
             maxW="lg"
-            className="m-3 min-w-[48%]"
+            className="m-3 min-w-[48%] "
             header={
               <DashCardHeader
                 color="text-violet-600 bg-violet-200"
@@ -171,6 +180,37 @@ export const Index = () => {
         >
           <div className="w-full">
             <TableListTotal dataInfo={dataInfo} searchTime={searchTime} />
+          </div>
+        </Card>
+      </div>
+      {/* area charts */}
+      <div className="flex mt-2 w-full px-5">
+        <Card
+          className="m-3 min-w-[48%]"
+          maxW="lg"
+          header={
+            <DashCardHeader
+              color="text-violet-600 bg-violet-200"
+              title="项目人力规划与预计"
+            />
+          }
+        >
+          <div className="w-full">
+            <AreaChart />
+          </div>
+        </Card>
+        <Card
+          className="m-3 min-w-[48%]"
+          maxW="lg"
+          header={
+            <DashCardHeader
+              color="text-violet-600 bg-violet-200"
+              title="项目人力规划与预计"
+            />
+          }
+        >
+          <div className="w-full">
+            <AreaChart />
           </div>
         </Card>
       </div>

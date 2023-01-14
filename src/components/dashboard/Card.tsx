@@ -1,17 +1,52 @@
-import { FC, ReactElement, ReactNode } from "react";
+import { FC, ReactElement, ReactNode, useState } from 'react';
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
+import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
 
 interface CardProps {
   children: ReactNode;
-  maxW: "xs" | "sm" | "lg" | "md";
+  maxW: 'xs' | 'sm' | 'lg' | 'md';
   className?: string;
   header: ReactElement;
 }
 
 export const Card: FC<CardProps> = ({ children, maxW, className, header }) => {
+  const [full, setFull] = useState(false);
+  // 创建一个fullScreen的handle
+  const handle = useFullScreenHandle();
   return (
-    <div className={`max-w-${maxW}  ${className}`}>
+    <div className={`relative max-w-${maxW}  ${className}`}>
       {header}
-      <div className="shadow-lg p-4">{children}</div>
+      <span style={{ position: 'absolute', top: '10px', right: '10px' }}>
+        {!full ? (
+          <Tooltip title="全屏">
+            <FullscreenOutlined
+              style={{ fontSize: 16 }}
+              onClick={() => {
+                // 点击设置full为true，接着调用handle的enter方法，进入全屏模式
+                setFull(true);
+                handle.enter();
+              }}
+            />
+          </Tooltip>
+        ) : (
+          <Tooltip title="退出全屏">
+            <FullscreenExitOutlined
+              style={{ fontSize: 16, marginLeft: 16 }}
+              // 退出全屏模式并把full设置为false
+              onClick={() => {
+                setFull(false);
+                handle.exit();
+              }}
+            />
+          </Tooltip>
+        )}
+      </span>
+      <div className="shadow-lg p-4">
+        <FullScreen handle={handle} className=" h-[440px]" onChange={setFull}>
+          {children}
+        </FullScreen>
+      </div>
     </div>
   );
 };
