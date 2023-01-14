@@ -39,7 +39,9 @@ const initialValues: any = {
 };
 export const Index = () => {
   const [form] = Form.useForm();
+  const [oldValue, setOldValue] = useState<string[]>([]); //项目选择
   const [value, setValue] = useState<string[]>([]); //项目选择
+
   const [roleValue, setRoleValue] = useState<string[]>(defaultRoleList); //角色选择
   const [searchTime, setSearchTime] = useState<any>({
     from: initialValues.dateTime[0].format('YYYY-MM-DD'),
@@ -74,6 +76,7 @@ export const Index = () => {
       //     value: item?.id,
       //   };
       // });
+      setOldValue(values);
       setValue(values);
       setOptions(list);
     };
@@ -93,11 +96,12 @@ export const Index = () => {
       from: initialValues.dateTime[0].format('YYYY-MM-DD'),
       to: initialValues.dateTime[1].format('YYYY-MM-DD'),
     });
+    setValue(oldValue);
     setRoleValue(defaultRoleList);
     form?.resetFields();
   };
   const onSearch = () => {
-    const values = form.getFieldValue('project') ?? [];
+    const values = form.getFieldValue('project') ?? oldValue;
     const valueRole = form.getFieldValue('roleList') ?? defaultRoleList;
     setValue(values);
     setRoleValue(valueRole);
@@ -110,7 +114,7 @@ export const Index = () => {
   };
 
   const dataInfo = options.filter((item: any) =>
-    (value || []).includes(item.value)
+    (value || oldValue).includes(item.value)
   );
   return (
     <div className="flex flex-col items-center">

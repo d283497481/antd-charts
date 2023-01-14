@@ -78,7 +78,7 @@ import request from './dashboard/request';
 //   { date: '2023-01-11', project: '413', estimate: '8934', consumed: '8' },
 //   { date: '2023-01-12', project: '413', estimate: '8934', consumed: '8' },
 // ];
-export const LineChart = ({ dataInfo = [] }: any) => {
+export const LineChart = ({ dataInfo }: any) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 

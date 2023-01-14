@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import request from './dashboard/request';
 
-export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
+export const TableListTotal = ({ dataInfo, searchTime }: any) => {
   const columns: ColumnsType<any> = [
     {
       title: '项目名称',
