@@ -27,166 +27,166 @@ export const ColumnChart = ({ project }: any) => {
         console.error(error);
         setData([]);
       }
-      const data = [
-        {
-          root: '349',
-          role: 'AE',
-          c: '2',
-          projectname:
-            '[FXMTMDT2021016-2A] XMTM T18 FDC Implementation Project',
-        },
-        {
-          root: '349',
-          role: 'PM',
-          c: '1',
-          projectname:
-            '[FXMTMDT2021016-2A] XMTM T18 FDC Implementation Project',
-        },
-        {
-          root: '350',
-          role: 'AE',
-          c: '1',
-          projectname:
-            '[FXMTMDT2022009-2A] XMTM T18 R2R Implementation Project',
-        },
-        {
-          root: '350',
-          role: 'PM',
-          c: '1',
-          projectname:
-            '[FXMTMDT2022009-2A] XMTM T18 R2R Implementation Project',
-        },
-        {
-          root: '350',
-          role: 'SE',
-          c: '1',
-          projectname:
-            '[FXMTMDT2022009-2A] XMTM T18 R2R Implementation Project',
-        },
-        {
-          root: '413',
-          role: 'AE',
-          c: '6',
-          projectname:
-            '[BCDDT2021014-2A]ICRD-eFDC/eR2R Strategy Project(PD/CON)',
-        },
-        {
-          root: '413',
-          role: 'PM',
-          c: '1',
-          projectname:
-            '[BCDDT2021014-2A]ICRD-eFDC/eR2R Strategy Project(PD/CON)',
-        },
-        {
-          root: '435',
-          role: 'AE',
-          c: '2',
-          projectname:
-            '[FBJSLIT2022019-2A] Silex Beijing FDC implementation project',
-        },
-        {
-          root: '435',
-          role: 'PM',
-          c: '1',
-          projectname:
-            '[FBJSLIT2022019-2A] Silex Beijing FDC implementation project',
-        },
-        {
-          root: '453',
-          role: 'AE',
-          c: '2',
-          projectname:
-            '[FBJSLIT2022019-2B] Silex Beijing R2R implementation project',
-        },
-        {
-          root: '453',
-          role: 'PM',
-          c: '1',
-          projectname:
-            '[FBJSLIT2022019-2B] Silex Beijing R2R implementation project',
-        },
-        {
-          root: '453',
-          role: 'TAG',
-          c: '1',
-          projectname:
-            '[FBJSLIT2022019-2B] Silex Beijing R2R implementation project',
-        },
-        {
-          root: '453',
-          role: 'TPS',
-          c: '1',
-          projectname:
-            '[FBJSLIT2022019-2B] Silex Beijing R2R implementation project',
-        },
-        {
-          root: '530',
-          role: 'AE',
-          c: '2',
-          projectname:
-            '[FSXSMDS2022020-XX] SMEC(ShaoXing) eFDC Phase5 Implementation Project',
-        },
-        {
-          root: '530',
-          role: 'PM',
-          c: '1',
-          projectname:
-            '[FSXSMDS2022020-XX] SMEC(ShaoXing) eFDC Phase5 Implementation Project',
-        },
-        {
-          root: '601',
-          role: 'AE',
-          c: '1',
-          projectname: '[FCDCHIT2021018-2B]CHJS APC Project',
-        },
-        {
-          root: '601',
-          role: 'PM',
-          c: '2',
-          projectname: '[FCDCHIT2021018-2B]CHJS APC Project',
-        },
-        {
-          root: '601',
-          role: 'SE',
-          c: '2',
-          projectname: '[FCDCHIT2021018-2B]CHJS APC Project',
-        },
-        {
-          root: '620',
-          role: 'PM',
-          c: '2',
-          projectname: '[FCDCHIT2021018-2A]CHJS FDC Project',
-        },
-        {
-          root: '636',
-          role: 'AE',
-          c: '3',
-          projectname: '[FZZCRIT2022021-2A]CRRC FDC Project 2022',
-        },
-        {
-          root: '636',
-          role: 'PM',
-          c: '1',
-          projectname: '[FZZCRIT2022021-2A]CRRC FDC Project 2022',
-        },
-        {
-          root: '636',
-          role: '\u8f6f\u4ef6\u5de5\u7a0b\u5e08',
-          c: '2',
-          projectname: '[FZZCRIT2022021-2A]CRRC FDC Project 2022',
-        },
-      ];
-      const list: any = [];
-      console.log('...........', project);
-      data.map((item: any) => {
-        if (!project || (project || []).includes(`${item.root}`)) {
-          list.push({
-            ...(item || {}),
-            value: Number(item?.c || 0),
-          });
-        }
-      });
-      setData(list);
+      // const data = [
+      //   {
+      //     root: '349',
+      //     role: 'AE',
+      //     c: '2',
+      //     projectname:
+      //       '[FXMTMDT2021016-2A] XMTM T18 FDC Implementation Project',
+      //   },
+      //   {
+      //     root: '349',
+      //     role: 'PM',
+      //     c: '1',
+      //     projectname:
+      //       '[FXMTMDT2021016-2A] XMTM T18 FDC Implementation Project',
+      //   },
+      //   {
+      //     root: '350',
+      //     role: 'AE',
+      //     c: '1',
+      //     projectname:
+      //       '[FXMTMDT2022009-2A] XMTM T18 R2R Implementation Project',
+      //   },
+      //   {
+      //     root: '350',
+      //     role: 'PM',
+      //     c: '1',
+      //     projectname:
+      //       '[FXMTMDT2022009-2A] XMTM T18 R2R Implementation Project',
+      //   },
+      //   {
+      //     root: '350',
+      //     role: 'SE',
+      //     c: '1',
+      //     projectname:
+      //       '[FXMTMDT2022009-2A] XMTM T18 R2R Implementation Project',
+      //   },
+      //   {
+      //     root: '413',
+      //     role: 'AE',
+      //     c: '6',
+      //     projectname:
+      //       '[BCDDT2021014-2A]ICRD-eFDC/eR2R Strategy Project(PD/CON)',
+      //   },
+      //   {
+      //     root: '413',
+      //     role: 'PM',
+      //     c: '1',
+      //     projectname:
+      //       '[BCDDT2021014-2A]ICRD-eFDC/eR2R Strategy Project(PD/CON)',
+      //   },
+      //   {
+      //     root: '435',
+      //     role: 'AE',
+      //     c: '2',
+      //     projectname:
+      //       '[FBJSLIT2022019-2A] Silex Beijing FDC implementation project',
+      //   },
+      //   {
+      //     root: '435',
+      //     role: 'PM',
+      //     c: '1',
+      //     projectname:
+      //       '[FBJSLIT2022019-2A] Silex Beijing FDC implementation project',
+      //   },
+      //   {
+      //     root: '453',
+      //     role: 'AE',
+      //     c: '2',
+      //     projectname:
+      //       '[FBJSLIT2022019-2B] Silex Beijing R2R implementation project',
+      //   },
+      //   {
+      //     root: '453',
+      //     role: 'PM',
+      //     c: '1',
+      //     projectname:
+      //       '[FBJSLIT2022019-2B] Silex Beijing R2R implementation project',
+      //   },
+      //   {
+      //     root: '453',
+      //     role: 'TAG',
+      //     c: '1',
+      //     projectname:
+      //       '[FBJSLIT2022019-2B] Silex Beijing R2R implementation project',
+      //   },
+      //   {
+      //     root: '453',
+      //     role: 'TPS',
+      //     c: '1',
+      //     projectname:
+      //       '[FBJSLIT2022019-2B] Silex Beijing R2R implementation project',
+      //   },
+      //   {
+      //     root: '530',
+      //     role: 'AE',
+      //     c: '2',
+      //     projectname:
+      //       '[FSXSMDS2022020-XX] SMEC(ShaoXing) eFDC Phase5 Implementation Project',
+      //   },
+      //   {
+      //     root: '530',
+      //     role: 'PM',
+      //     c: '1',
+      //     projectname:
+      //       '[FSXSMDS2022020-XX] SMEC(ShaoXing) eFDC Phase5 Implementation Project',
+      //   },
+      //   {
+      //     root: '601',
+      //     role: 'AE',
+      //     c: '1',
+      //     projectname: '[FCDCHIT2021018-2B]CHJS APC Project',
+      //   },
+      //   {
+      //     root: '601',
+      //     role: 'PM',
+      //     c: '2',
+      //     projectname: '[FCDCHIT2021018-2B]CHJS APC Project',
+      //   },
+      //   {
+      //     root: '601',
+      //     role: 'SE',
+      //     c: '2',
+      //     projectname: '[FCDCHIT2021018-2B]CHJS APC Project',
+      //   },
+      //   {
+      //     root: '620',
+      //     role: 'PM',
+      //     c: '2',
+      //     projectname: '[FCDCHIT2021018-2A]CHJS FDC Project',
+      //   },
+      //   {
+      //     root: '636',
+      //     role: 'AE',
+      //     c: '3',
+      //     projectname: '[FZZCRIT2022021-2A]CRRC FDC Project 2022',
+      //   },
+      //   {
+      //     root: '636',
+      //     role: 'PM',
+      //     c: '1',
+      //     projectname: '[FZZCRIT2022021-2A]CRRC FDC Project 2022',
+      //   },
+      //   {
+      //     root: '636',
+      //     role: '\u8f6f\u4ef6\u5de5\u7a0b\u5e08',
+      //     c: '2',
+      //     projectname: '[FZZCRIT2022021-2A]CRRC FDC Project 2022',
+      //   },
+      // ];
+      // const list: any = [];
+      // console.log('...........', project);
+      // data.map((item: any) => {
+      //   if (!project || (project || []).includes(`${item.root}`)) {
+      //     list.push({
+      //       ...(item || {}),
+      //       value: Number(item?.c || 0),
+      //     });
+      //   }
+      // });
+      // setData(list);
       setLoading(false);
     };
     if (project) {
