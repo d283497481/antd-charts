@@ -1,65 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import request from '../components/dashboard/request';
+import request from './dashboard/request';
 
 export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
   const columns: ColumnsType<any> = [
     {
       title: '项目名称',
       dataIndex: 'name',
-      width: 300,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: '开始时间',
       dataIndex: 'begin',
-      width: 150,
+      ellipsis: true,
+      width: 116,
     },
     {
       title: '计划结束时间',
       dataIndex: 'end',
-      width: 150,
+      ellipsis: true,
+      width: 118,
     },
     {
-      title: '当期进展（工时）',
+      title: '当期进展(工时)',
       dataIndex: 'curconsumed',
-      width: 150,
+      ellipsis: true,
+      render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
+      width: 128,
     },
     {
-      title: '档期进展（%）',
+      title: '档期进展(%)',
       dataIndex: 'progress',
-      render: val => `${(Number(val || 0) * 100).toFixed(2)}%`,
-      width: 140,
+      ellipsis: true,
+      render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
+      width: 114,
     },
     {
-      title: '已消耗工时',
+      title: '已消耗工时(人天)',
       dataIndex: 'consumed',
-      width: 120,
+      ellipsis: true,
+      render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
+      width: 143,
     },
     {
-      title: '剩余预计工时',
+      title: '剩余预计工时(人天)',
       dataIndex: 'left',
-      width: 150,
+      ellipsis: true,
+      render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
+      width: 156,
     },
     {
-      title: '总计划工时',
+      title: '总计划工时(人天)',
       dataIndex: 'estimate',
-      width: 120,
+      ellipsis: true,
+      render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
+      width: 143,
     },
     {
-      title: '已消耗工时占比（%）',
+      title: '已消耗工时占比(%)',
       dataIndex: 'consumedper',
-      render: val => `${(Number(val || 0) * 100).toFixed(2)}%`,
-      width: 200,
+      ellipsis: true,
+      render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
+      width: 155,
     },
     {
-      title: '当前项目工程师数目',
+      title: '现场+远程人数',
       dataIndex: 'teamnum',
-      width: 200,
+      // render: (val, record) => `${val ?? 0}+${record?.teamnum1 ?? 0}`,
+      ellipsis: true,
+      width: 138,
     },
   ];
+  const [loading, setLoading] = useState(true);
+
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
+    setLoading(true);
     const getDetail = async (project: string, items: any) => {
       try {
         const res: any = await request.post('/zzyDashboard-d1d5', {
@@ -80,6 +98,7 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
       }
 
       Promise.all(postApi).then(res => {
+        setLoading(false);
         setData(res);
       });
     }
@@ -88,9 +107,12 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
   return (
     <Table
       rowKey="name"
+      bordered
+      loading={loading}
       columns={columns}
       dataSource={data}
-      scroll={{ y: 400 }}
+      pagination={false}
+      scroll={{ y: 380 }}
     />
   );
 };

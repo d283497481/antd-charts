@@ -18,7 +18,7 @@ export const Card: FC<CardProps> = ({ children, maxW, className, header }) => {
     <div className={`relative max-w-${maxW}  ${className}`}>
       {header}
       <span style={{ position: 'absolute', top: '10px', right: '10px' }}>
-        {!full ? (
+        {!full && (
           <Tooltip title="全屏">
             <FullscreenOutlined
               style={{ fontSize: 16 }}
@@ -29,21 +29,22 @@ export const Card: FC<CardProps> = ({ children, maxW, className, header }) => {
               }}
             />
           </Tooltip>
-        ) : (
-          <Tooltip title="退出全屏">
-            <FullscreenExitOutlined
-              style={{ fontSize: 16, marginLeft: 16 }}
-              // 退出全屏模式并把full设置为false
-              onClick={() => {
-                setFull(false);
-                handle.exit();
-              }}
-            />
-          </Tooltip>
         )}
       </span>
       <div className="shadow-lg p-4">
         <FullScreen handle={handle} className=" h-[440px]" onChange={setFull}>
+          {full && (
+            <Tooltip title="退出全屏">
+              <FullscreenExitOutlined
+                style={{ fontSize: 16, marginLeft: 16 }}
+                // 退出全屏模式并把full设置为false
+                onClick={() => {
+                  setFull(false);
+                  handle.exit();
+                }}
+              />
+            </Tooltip>
+          )}
           {children}
         </FullScreen>
       </div>

@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Column } from '@ant-design/plots';
 import { each, groupBy } from '@antv/util';
-import request from '../components/dashboard/request';
+import request from './dashboard/request';
+import { Skeleton } from 'antd';
 
-export const ColumnChart = (project: any) => {
+export const ColumnChart = ({ project }: any) => {
   const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     const getDetail = async () => {
       try {
         const res: any = await request.post('/zzyDashboard-d1d4', {});
-        const list = res
-          ? (res?.data || [])?.map((item: any) => {
-              return {
+        const list: any = [];
+        res &&
+          (res?.data || [])?.map((item: any) => {
+            if (!project || (project || []).includes(`${item.root}`)) {
+              list.push({
                 ...(item || {}),
                 value: Number(item?.c || 0),
-              };
-            })
-          : [];
+              });
+            }
+          });
         setData(list);
       } catch (error) {
         console.error(error);
@@ -171,13 +176,18 @@ export const ColumnChart = (project: any) => {
           projectname: '[FZZCRIT2022021-2A]CRRC FDC Project 2022',
         },
       ];
-      const lists = data.map((item: any) => {
-        return {
-          ...item,
-          value: Number(item.c),
-        };
+      const list: any = [];
+      console.log('...........', project);
+      data.map((item: any) => {
+        if (!project || (project || []).includes(`${item.root}`)) {
+          list.push({
+            ...(item || {}),
+            value: Number(item?.c || 0),
+          });
+        }
       });
-      setData(lists);
+      setData(list);
+      setLoading(false);
     };
     if (project) {
       getDetail();
@@ -232,12 +242,10 @@ export const ColumnChart = (project: any) => {
     },
     xAxis: {
       label: {
-        autoRotate: false,
-        labelEmit: true,
         formatter: function (value: any) {
           let valueTxt = '';
-          if (value.length > 3) {
-            valueTxt = value.substring(0, 4) + '...';
+          if ((project || []).length > 1 && value.length > 5) {
+            valueTxt = value.substring(0, 5) + '...';
           } else {
             valueTxt = value;
           }
@@ -247,12 +255,7 @@ export const ColumnChart = (project: any) => {
     },
     // 使用 annotation （图形标注）来展示：总数的 label
     annotations,
-    columnBackground: {
-      style: {
-        fill: 'rgba(0,0,0,0.1)',
-      },
-    },
   };
 
-  return <Column {...config} />;
+  return !loading ? <Column {...config} /> : <Skeleton />;
 };

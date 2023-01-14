@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
-import request from '../components/dashboard/request';
+import { Skeleton } from 'antd';
+import request from './dashboard/request';
 const defaultData = [
   {
     date: '2021-07-01',
@@ -1181,7 +1182,10 @@ const defaultData = [
 ];
 export const MultiLineChart = ({ dataInfo }: any) => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     const getDetail = async (project: string) => {
       try {
         const res: any = await request.post('/zzyDashboard-d1d2', { project });
@@ -1221,6 +1225,7 @@ export const MultiLineChart = ({ dataInfo }: any) => {
         setData(dataInfos);
         setData([]);
       }
+      setLoading(false);
     };
     if (dataInfo) {
       getDetail(dataInfo[0]?.id);
@@ -1252,6 +1257,5 @@ export const MultiLineChart = ({ dataInfo }: any) => {
     //   },
     // },
   };
-
-  return <Line {...config} />;
+  return !loading ? <Line {...config} /> : <Skeleton />;
 };

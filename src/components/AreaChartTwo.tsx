@@ -3,14 +3,14 @@ import { Area } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
 
-export const AreaChart = ({ searchTime }: any) => {
+export const AreaChartTwo = ({ searchTime }: any) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
     const getDetail = async () => {
       try {
-        const res: any = await request.post('/zzyDashboard-d1d9', searchTime);
+        const res: any = await request.post('/zzyDashboard-d1d8', searchTime);
         const list = res
           ? (res?.data || [])?.map((item: any) => {
               return {
@@ -32,9 +32,9 @@ export const AreaChart = ({ searchTime }: any) => {
   }, [searchTime]);
   const config = {
     data,
-    xField: 'mdate',
+    xField: 'date',
     yField: 'value',
-    seriesField: 'role',
+    seriesField: 'projectname',
     slider: {
       start: 0.1,
       end: 0.9,

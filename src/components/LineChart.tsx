@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
-import request from '../components/dashboard/request';
+import { Skeleton } from 'antd';
+import request from './dashboard/request';
 const defaultData = [
   { date: '2021-07-01', project: '413', estimate: '8934', consumed: '176' },
   { date: '2021-08-03', project: '413', estimate: '8934', consumed: '211' },
@@ -79,7 +80,10 @@ const defaultData = [
 ];
 export const LineChart = ({ dataInfo = [] }: any) => {
   const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     const getDetail = async (project: string, items: any) => {
       try {
         const res: any = await request.post('/zzyDashboard-d1d1', {
@@ -117,6 +121,7 @@ export const LineChart = ({ dataInfo = [] }: any) => {
 
       Promise.all(postApi).then(res => {
         setData(res.flat(1));
+        setLoading(false);
       });
     }
   }, [dataInfo]);
@@ -156,5 +161,5 @@ export const LineChart = ({ dataInfo = [] }: any) => {
     // },
     color: COLOR_PLATE_10,
   };
-  return <Line {...config} />;
+  return !loading ? <Line {...config} /> : <Skeleton />;
 };

@@ -9,7 +9,10 @@ import {
   TableListTotal,
   MultiLineChart,
   TableList,
+  AreaChartTwo,
+  AreaChartOne,
   AreaChart,
+  DualAxesChart,
 } from '../components';
 import request from '../components/dashboard/request';
 import dayjs from 'dayjs';
@@ -25,9 +28,6 @@ export const Index = () => {
   const [searchTime, setSearchTime] = useState<any>({
     from: initialValues.dateTime[0].format('YYYY-MM-DD'),
     to: initialValues.dateTime[1].format('YYYY-MM-DD'),
-    role: '',
-    project: '',
-    projectname: '',
   });
   const [options, setOptions] = useState<any>([]);
   useEffect(() => {
@@ -89,8 +89,9 @@ export const Index = () => {
     options,
     placeholder: '请选择',
   };
-  const dataInfo = options.filter((item: any) => value.includes(item.value));
-  console.log(dataInfo);
+  const dataInfo = options.filter((item: any) =>
+    (value || []).includes(item.value)
+  );
   return (
     <div className="flex flex-col items-center">
       <span className="flex text-xl font-bold mt-5">
@@ -114,26 +115,14 @@ export const Index = () => {
         <Card
           className="m-3 min-w-[48%]"
           maxW="lg"
-          header={
-            <DashCardHeader
-              color="text-amber-600 bg-amber-200"
-              title="项目燃尽图"
-            />
-          }
+          header={<DashCardHeader title="项目燃尽图" />}
         >
-          <div className="w-full">
-            <LineChart dataInfo={dataInfo} />
-          </div>
+          <LineChart dataInfo={dataInfo} />
         </Card>
         <Card
           maxW="lg"
           className="m-3 min-w-[48%]"
-          header={
-            <DashCardHeader
-              color="text-amber-600 bg-amber-200"
-              title="项目驻场工程师统计"
-            />
-          }
+          header={<DashCardHeader title="项目驻场工程师统计" />}
         >
           <ColumnChart project={value} />
         </Card>
@@ -143,24 +132,14 @@ export const Index = () => {
           <Card
             maxW="lg"
             className="m-3 min-w-[48%] "
-            header={
-              <DashCardHeader
-                color="text-violet-600 bg-violet-200"
-                title="阶段数据燃尽图"
-              />
-            }
+            header={<DashCardHeader title="阶段数据燃尽图" />}
           >
             <MultiLineChart dataInfo={dataInfo} />
           </Card>
           <Card
             maxW="lg"
             className="m-3 min-w-[48%]"
-            header={
-              <DashCardHeader
-                color="text-violet-600 bg-violet-200"
-                title="阶段数据表格"
-              />
-            }
+            header={<DashCardHeader title="阶段数据表格" />}
           >
             <TableList dataInfo={dataInfo} searchTime={searchTime} />
           </Card>
@@ -171,47 +150,44 @@ export const Index = () => {
         <Card
           className="m-3 min-w-[100%]"
           maxW="lg"
-          header={
-            <DashCardHeader
-              color="text-violet-600 bg-violet-200"
-              title="项目人力规划与预计"
-            />
-          }
+          header={<DashCardHeader title="项目人力规划与预计" />}
         >
-          <div className="w-full">
-            <TableListTotal dataInfo={dataInfo} searchTime={searchTime} />
-          </div>
+          <TableListTotal dataInfo={dataInfo} searchTime={searchTime} />
         </Card>
       </div>
+
       {/* area charts */}
       <div className="flex mt-2 w-full px-5">
         <Card
           className="m-3 min-w-[48%]"
           maxW="lg"
-          header={
-            <DashCardHeader
-              color="text-violet-600 bg-violet-200"
-              title="项目人力规划与预计"
-            />
-          }
+          header={<DashCardHeader title="项目人力情况分布（按项目）" />}
         >
-          <div className="w-full">
-            <AreaChart />
-          </div>
+          <AreaChartTwo searchTime={searchTime} />
         </Card>
         <Card
           className="m-3 min-w-[48%]"
           maxW="lg"
-          header={
-            <DashCardHeader
-              color="text-violet-600 bg-violet-200"
-              title="项目人力规划与预计"
-            />
-          }
+          header={<DashCardHeader title="空闲人员按角色分布" />}
         >
-          <div className="w-full">
-            <AreaChart />
-          </div>
+          <AreaChart searchTime={searchTime} />
+        </Card>
+      </div>
+      {/* area charts */}
+      <div className="flex mt-2 w-full px-5">
+        {/* <Card
+          className="m-3 min-w-[48%]"
+          maxW="lg"
+          header={<DashCardHeader title="项目人力投入" />}
+        >
+          <DualAxesChart dataInfo={dataInfo} searchTime={searchTime} />
+        </Card> */}
+        <Card
+          className="m-3 min-w-[48%]"
+          maxW="lg"
+          header={<DashCardHeader title="项目人力情况分布（按角色）" />}
+        >
+          <AreaChartOne searchTime={searchTime} />
         </Card>
       </div>
     </div>

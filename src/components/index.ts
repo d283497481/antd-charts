@@ -4,4 +4,7 @@ export * from './dashboard';
 export * from './TableList';
 export * from './ColumnChart';
 export * from './TableListTotal';
+export * from './AreaChartOne';
+export * from './AreaChartTwo';
 export * from './AreaChart';
+export * from './DualAxesChart';
