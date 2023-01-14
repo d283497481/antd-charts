@@ -1187,7 +1187,7 @@ export const MultiLineChart = ({ dataInfo }: any) => {
         const res: any = await request.post('/zzyDashboard-d1d2', { project });
         let total: any = {};
         const dataInfos: any = res
-          ? (res || []).map((item: any) => {
+          ? (res?.data || []).map((item: any) => {
               if (!total[item?.stagename]) {
                 total[item?.stagename] = Number(item?.consumed || 0);
               } else {

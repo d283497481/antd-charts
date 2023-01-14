@@ -86,7 +86,7 @@ export const LineChart = ({ dataInfo = [] }: any) => {
           project,
         });
         let total = 0;
-        return (res || []).map((item: any) => {
+        return (res?.data || []).map((item: any) => {
           total += Number(item?.consumed || 0);
           return {
             date: item?.date,

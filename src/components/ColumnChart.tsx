@@ -10,7 +10,7 @@ export const ColumnChart = (project: any) => {
       try {
         const res: any = await request.post('/zzyDashboard-d1d4', {});
         const list = res
-          ? (res || [])?.map((item: any) => {
+          ? (res?.data || [])?.map((item: any) => {
               return {
                 ...(item || {}),
                 value: Number(item?.c || 0),

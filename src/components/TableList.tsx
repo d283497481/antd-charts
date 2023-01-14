@@ -60,7 +60,7 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
           ...searchTime,
           project,
         });
-        setData(res || []);
+        setData(res?.data || []);
       } catch (error) {
         console.error(error);
         setData([]);

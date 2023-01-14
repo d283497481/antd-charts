@@ -6,11 +6,11 @@ import axios from 'axios';
 const request = axios.create({
   baseURL: '/zentao',
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'X-Requested-With': 'XMLHttpRequest',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
   },
-  withCredentials: false,
+  withCredentials: true,
   responseType: 'json',
-  responseEncoding: 'utf8',
 });
 
 request.interceptors.request.use(

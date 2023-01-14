@@ -40,7 +40,7 @@ export const Index = () => {
         console.error(error);
       }
       const list = res
-        ? (res ?? []).map((item: any) => {
+        ? (res?.data ?? []).map((item: any) => {
             values.push(item?.id);
             return {
               ...(item || {}),

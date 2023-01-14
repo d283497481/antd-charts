@@ -66,7 +66,7 @@ export const TableListTotal = ({ dataInfo = [], searchTime }: any) => {
           ...searchTime,
           project,
         });
-        return res ? { ...items, ...(res?.[0] || {}) } : items;
+        return res ? { ...items, ...(res?.data?.[0] || {}) } : items;
       } catch (error) {
         console.error(error);
         return items;
