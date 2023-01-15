@@ -11,7 +11,7 @@ export const AreaChartOne = ({ searchTime }: any) => {
     setLoading(true);
     const getDetail = async () => {
       try {
-        const res: any = await request.post('/zzyDashboard-d1d7', searchTime);
+        const res: any = await request.post('/zzyDashboard-d2', searchTime);
         const list = res
           ? (res?.data || [])?.map((item: any) => {
               return {

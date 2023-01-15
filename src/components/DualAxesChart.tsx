@@ -23,24 +23,25 @@ export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
       }
     };
     if (dataInfo) {
-      const postApi = [];
-
+      const postApi: any[] = [];
       for (let i = 0; i < dataInfo.length; i++) {
         postApi.push(getDetail(dataInfo[i]?.id));
       }
-
-      Promise.all(postApi).then(res => {
+      const getApi = async () => {
+        const res = await Promise.all(postApi);
         const list: any = [];
         const totalList: any = []; //res.flat(1);
         for (let i = 0; i < dataInfo.length; i++) {
           let total = 0;
           res?.[i] &&
             res?.[i].forEach((item: any) => {
-              total += Number(item?.consumed || 0);
-              list.push({
-                ...(item || {}),
-                value: Number(item?.consumed || 0),
-              });
+              if (item?.role) {
+                total += Number(item?.consumed || 0);
+                list.push({
+                  ...(item || {}),
+                  value: Number(item?.consumed || 0),
+                });
+              }
             });
           totalList.push({
             项目合计: total,
@@ -51,7 +52,8 @@ export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
         setUvBillData(list);
         setTransformData(totalList);
         setLoading(false);
-      });
+      };
+      getApi();
     }
   }, [searchTime, dataInfo]);
 

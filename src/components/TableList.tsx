@@ -37,22 +37,25 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
     },
     {
       title: '当前状态',
-      dataIndex: 'status',
+      dataIndex: 'od',
       ellipsis: true,
       render: (row: any) => {
-        if (row === 'wait') {
-          return <Tag color="#595959">{row}</Tag>;
+        if (`${row}` === '3') {
+          return <Tag color="#595959">未开始</Tag>;
         }
-        if (row === 'done') {
-          return <Tag color="#52c41a">{row}</Tag>;
+        if (`${row}` === '1') {
+          return <Tag color="#52c41a">已完成(本期)</Tag>;
         }
-        if (row === 'doing') {
-          return <Tag color="#faad14">{row}</Tag>;
+        if (`${row}` === '2') {
+          return <Tag color="#faad14">正在进行中</Tag>;
         }
-        if (row === 'closed') {
-          return <Tag color="#135200">{row}</Tag>;
+        if (`${row}` === '0') {
+          return <Tag color="#135200">已完成(本期之前)</Tag>;
         }
-        return <Tag>{row}</Tag>;
+        if (`${row}` === '4') {
+          return <Tag>其他</Tag>;
+        }
+        return '-';
       },
       width: 100,
     },
@@ -202,16 +205,16 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
       scroll={{ y: 400 }}
       pagination={false}
       rowClassName={(row: any) => {
-        if (row.status === 'wait') {
+        if (`${row.od}` === '3') {
           return 'bg-[#fafafa]';
         }
-        if (row.status === 'done') {
+        if (`${row.od}` === '1') {
           return 'bg-[#d9f7be]';
         }
-        if (row.status === 'doing') {
+        if (`${row.od}` === '2') {
           return 'bg-[#fff1b8]';
         }
-        if (row.status === 'closed') {
+        if (`${row.od}` === '0') {
           return 'bg-[#b7eb8f]';
         }
         return '';

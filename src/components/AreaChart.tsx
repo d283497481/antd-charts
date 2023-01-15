@@ -10,7 +10,7 @@ export const AreaChart = ({ searchTime }: any) => {
     setLoading(true);
     const getDetail = async () => {
       try {
-        const res: any = await request.post('/zzyDashboard-d1d9', searchTime);
+        const res: any = await request.post('/zzyDashboard-d2d2', searchTime);
         const list = res
           ? (res?.data || [])?.map((item: any) => {
               return {

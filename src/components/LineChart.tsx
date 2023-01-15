@@ -90,14 +90,18 @@ export const LineChart = ({ dataInfo }: any) => {
           project,
         });
         let total = 0;
-        return (res?.data || []).map((item: any) => {
-          total += Number(item?.consumed || 0);
-          return {
-            date: item?.date,
-            name: items?.name,
-            value: Number(item?.estimate || 0) - total,
-          };
+        const list: any = [];
+        (res?.data || []).map((item: any) => {
+          if (item?.date) {
+            total += Number(item?.consumed || 0);
+            list.push({
+              date: item?.date,
+              name: items?.name,
+              value: Number(item?.estimate || 0) - total,
+            });
+          }
         });
+        return list;
       } catch (error) {
         console.error(error);
         // let total = 0;
@@ -113,30 +117,19 @@ export const LineChart = ({ dataInfo }: any) => {
       }
     };
     if (dataInfo) {
-      const postApi = [];
+      const postApi: any[] = [];
 
       for (let i = 0; i < dataInfo.length; i++) {
         postApi.push(getDetail(dataInfo[i]?.id, dataInfo[i]));
       }
-
-      Promise.all(postApi).then(res => {
+      const getApi = async () => {
+        const res = await Promise.all(postApi);
         setData(res.flat(1));
         setLoading(false);
-      });
+      };
+      getApi();
     }
   }, [dataInfo]);
-  const COLOR_PLATE_10 = [
-    '#5B8FF9',
-    '#5AD8A6',
-    '#5D7092',
-    '#F6BD16',
-    '#E8684A',
-    '#6DC8EC',
-    '#9270CA',
-    '#FF9D4D',
-    '#269A99',
-    '#FF99C3',
-  ];
   const config = {
     data,
     xField: 'date',
@@ -159,7 +152,6 @@ export const LineChart = ({ dataInfo }: any) => {
     //     return 'circle';
     //   },
     // },
-    color: COLOR_PLATE_10,
   };
   return !loading ? <Line {...config} /> : <Skeleton />;
 };

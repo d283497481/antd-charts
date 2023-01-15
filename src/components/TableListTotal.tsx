@@ -31,11 +31,18 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
       width: 128,
     },
     {
-      title: '档期进展(%)',
+      title: '项目进展(按工时%)',
       dataIndex: 'progress',
       ellipsis: true,
       render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
-      width: 114,
+      width: 156,
+    },
+    {
+      title: '项目进展(按阶段%)',
+      dataIndex: 'percent',
+      ellipsis: true,
+      render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
+      width: 156,
     },
     {
       title: '已消耗工时(人天)',
@@ -68,7 +75,6 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
     {
       title: '现场+远程人数',
       dataIndex: 'teamnum',
-      // render: (val, record) => `${val ?? 0}+${record?.teamnum1 ?? 0}`,
       ellipsis: true,
       width: 138,
     },
@@ -91,16 +97,17 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
       }
     };
     if (dataInfo) {
-      const postApi = [];
+      const postApi: any[] = [];
 
       for (let i = 0; i < dataInfo.length; i++) {
         postApi.push(getDetail(dataInfo[i]?.id, dataInfo[i]));
       }
-
-      Promise.all(postApi).then(res => {
-        setLoading(false);
+      const getApi = async () => {
+        const res = await Promise.all(postApi);
         setData(res);
-      });
+        setLoading(false);
+      };
+      getApi();
     }
   }, [searchTime, dataInfo]);
 
