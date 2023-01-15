@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Area } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
+import { groupBy } from './dashboard/utils';
 
 export const AreaChartOne = ({ searchTime }: any) => {
   const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ export const AreaChartOne = ({ searchTime }: any) => {
     const getDetail = async () => {
       try {
         const res: any = await request.post('/zzyDashboard-d2', searchTime);
-        const list = res
+        let list = res
           ? (res?.data || [])?.map((item: any) => {
               return {
                 ...(item || {}),
@@ -20,6 +21,7 @@ export const AreaChartOne = ({ searchTime }: any) => {
               };
             })
           : [];
+        list = groupBy(list, 'role', 'date', searchTime);
         setData(list);
       } catch (error) {
         console.error(error);
@@ -36,6 +38,8 @@ export const AreaChartOne = ({ searchTime }: any) => {
     xField: 'date',
     yField: 'value',
     seriesField: 'role',
+    isStack: true,
+    smooth: true,
     slider: {
       start: 0.1,
       end: 0.9,

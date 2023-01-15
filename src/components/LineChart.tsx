@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
+import { groupBy } from './dashboard/utils';
 // const defaultData = [
 //   { date: '2021-07-01', project: '413', estimate: '8934', consumed: '176' },
 //   { date: '2021-08-03', project: '413', estimate: '8934', consumed: '211' },
@@ -78,7 +79,7 @@ import request from './dashboard/request';
 //   { date: '2023-01-11', project: '413', estimate: '8934', consumed: '8' },
 //   { date: '2023-01-12', project: '413', estimate: '8934', consumed: '8' },
 // ];
-export const LineChart = ({ dataInfo }: any) => {
+export const LineChart = ({ dataInfo, searchTime }: any) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -92,7 +93,7 @@ export const LineChart = ({ dataInfo }: any) => {
         let total = 0;
         const list: any = [];
         (res?.data || []).map((item: any) => {
-          if (item?.date) {
+          if (item?.date && item?.date !== '0000-00-00') {
             total += Number(item?.consumed || 0);
             list.push({
               date: item?.date,
@@ -104,15 +105,6 @@ export const LineChart = ({ dataInfo }: any) => {
         return list;
       } catch (error) {
         console.error(error);
-        // let total = 0;
-        // return defaultData.map((item: any) => {
-        //   total += Number(item.consumed);
-        //   return {
-        //     date: item.date,
-        //     name: items.name,
-        //     value: Number(item.estimate) - total,
-        //   };
-        // });
         return [];
       }
     };
@@ -124,7 +116,10 @@ export const LineChart = ({ dataInfo }: any) => {
       }
       const getApi = async () => {
         const res = await Promise.all(postApi);
-        setData(res.flat(1));
+        let list = res.flat(1);
+        list = groupBy(list, 'name', 'date', searchTime);
+        // console.log(JSON.stringify(list));
+        setData(list);
         setLoading(false);
       };
       getApi();
@@ -147,6 +142,8 @@ export const LineChart = ({ dataInfo }: any) => {
       start: 0.1,
       end: 0.5,
     },
+    smooth: true,
+    // connectNulls: false,
     // point: {
     //   shape: () => {
     //     return 'circle';

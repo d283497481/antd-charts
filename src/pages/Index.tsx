@@ -67,7 +67,6 @@ const Index = () => {
   const changeTime = (rangeValue: any) => {
     console.log(rangeValue);
     setSearchTime({
-      ...searchTime,
       from: rangeValue[0].format('YYYY-MM-DD'),
       to: rangeValue[1].format('YYYY-MM-DD'),
     });
@@ -119,7 +118,7 @@ const Index = () => {
           maxW="lg"
           header={<DashCardHeader title="项目燃尽图" />}
         >
-          <LineChart dataInfo={dataInfo} />
+          <LineChart dataInfo={dataInfo} searchTime={searchTime} />
         </Card>
         <Card
           maxW="lg"
@@ -136,7 +135,7 @@ const Index = () => {
             className="m-3 min-w-[48%] "
             header={<DashCardHeader title="阶段数据燃尽图" />}
           >
-            <MultiLineChart dataInfo={dataInfo} />
+            <MultiLineChart dataInfo={dataInfo} searchTime={searchTime} />
           </Card>
           <Card
             maxW="lg"

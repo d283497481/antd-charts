@@ -7,8 +7,8 @@ import zhCN from 'antd/locale/zh_CN';
 function App() {
   return (
     <ConfigProvider locale={zhCN}>
-      {/* <Index /> */}
-      <IndexTwo />
+      <Index />
+      {/* <IndexTwo /> */}
     </ConfigProvider>
   );
 }

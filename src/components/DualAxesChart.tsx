@@ -29,6 +29,7 @@ export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
       }
       const getApi = async () => {
         const res = await Promise.all(postApi);
+        console.log(res);
         const list: any = [];
         const totalList: any = []; //res.flat(1);
         for (let i = 0; i < dataInfo.length; i++) {
@@ -39,13 +40,14 @@ export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
                 total += Number(item?.consumed || 0);
                 list.push({
                   ...(item || {}),
+                  role: !item?.role ? '-' : item?.role,
                   value: Number(item?.consumed || 0),
                 });
               }
             });
           totalList.push({
-            项目合计: total,
-            projectname: dataInfo[i].name,
+            total: total,
+            porjectname: dataInfo[i].name,
           });
         }
 
@@ -55,17 +57,17 @@ export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
       };
       getApi();
     }
-  }, [searchTime, dataInfo]);
+  }, [dataInfo]);
 
   const config = {
     data: [uvBillData, transformData],
-    xField: 'projectname',
-    yField: ['value', '项目合计'],
+    xField: 'porjectname',
+    yField: ['value', 'total'],
     xAxis: {
       label: {
         formatter: function (value: any) {
           let valueTxt = '';
-          if ((dataInfo || []).length > 1 && value.length > 5) {
+          if (value.length > 5) {
             valueTxt = value.substring(0, 5) + '...';
           } else {
             valueTxt = value;
@@ -74,6 +76,10 @@ export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
         },
       },
     },
+    // slider: {
+    //   start: 0.1,
+    //   end: 0.9,
+    // },
     geometryOptions: [
       {
         geometry: 'column',
@@ -82,6 +88,7 @@ export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
       },
       {
         geometry: 'line',
+        // smooth: true,
         lineStyle: {
           lineWidth: 2,
         },

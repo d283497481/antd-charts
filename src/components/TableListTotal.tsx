@@ -109,7 +109,7 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
       };
       getApi();
     }
-  }, [searchTime, dataInfo]);
+  }, [dataInfo]);
 
   return (
     <Table

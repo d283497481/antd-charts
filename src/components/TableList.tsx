@@ -57,7 +57,7 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
         }
         return '-';
       },
-      width: 100,
+      width: 140,
     },
     {
       title: '当期进展(工时)',
@@ -194,7 +194,7 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
     if (dataInfo) {
       getDetail(dataInfo[0]?.id);
     }
-  }, [searchTime, dataInfo]);
+  }, [dataInfo]);
 
   return (
     <Table

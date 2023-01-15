@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
+import { groupBy } from './dashboard/utils';
+
 // const defaultData = [
 //   {
 //     date: '2021-07-01',
@@ -1180,7 +1182,7 @@ import request from './dashboard/request';
 //     consumed: null,
 //   },
 // ];
-export const MultiLineChart = ({ dataInfo }: any) => {
+export const MultiLineChart = ({ dataInfo, searchTime }: any) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -1205,24 +1207,10 @@ export const MultiLineChart = ({ dataInfo }: any) => {
               };
             })
           : [];
-        setData(dataInfos);
+        const list: any = groupBy(dataInfos, 'stagename', 'date', searchTime);
+        setData(list);
       } catch (error) {
         console.error(error);
-        // let total: any = {};
-        // const dataInfos: any = defaultData.map((item: any) => {
-        //   if (!total[item.stagename]) {
-        //     total[item.stagename] = Number(item.consumed);
-        //   } else {
-        //     total[item.stagename] += Number(item.consumed);
-        //   }
-
-        //   return {
-        //     date: item.date,
-        //     stagename: item.stagename,
-        //     value: Number(item.estimate) - total[item.stagename],
-        //   };
-        // });
-        // setData(dataInfos);
         setData([]);
       }
       setLoading(false);
@@ -1237,6 +1225,7 @@ export const MultiLineChart = ({ dataInfo }: any) => {
     yField: 'value',
     autoFit: true,
     seriesField: 'stagename',
+    smooth: true,
     xAxis: {
       type: 'time',
     },
