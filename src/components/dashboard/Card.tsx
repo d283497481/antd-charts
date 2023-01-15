@@ -32,7 +32,7 @@ export const Card: FC<CardProps> = ({ children, maxW, className, header }) => {
         )}
       </span>
       <div className="shadow-lg p-4">
-        <FullScreen handle={handle} className=" h-[440px]" onChange={setFull}>
+        <FullScreen handle={handle} className="h-[500px]" onChange={setFull}>
           {full && (
             <Tooltip title="退出全屏">
               <FullscreenExitOutlined

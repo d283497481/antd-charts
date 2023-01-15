@@ -3,13 +3,13 @@ import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import request from './dashboard/request';
 
-export const TableListTotal = ({ dataInfo, searchTime }: any) => {
+export const TableListTotal = ({ dataInfo, searchTime, rowClick }: any) => {
   const columns: ColumnsType<any> = [
     {
       title: '项目名称',
       dataIndex: 'name',
       ellipsis: true,
-      width: 100,
+      width: 400,
     },
     {
       title: '开始时间',
@@ -25,52 +25,52 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
     },
     {
       title: '当期进展(工时)',
-      dataIndex: 'curconsumed',
       ellipsis: true,
+      dataIndex: 'curconsumed',
       render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
-      width: 128,
+      width: 120,
     },
     {
       title: '项目进展(按工时%)',
       dataIndex: 'progress',
       ellipsis: true,
       render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
-      width: 156,
+      width: 120,
     },
     {
       title: '项目进展(按阶段%)',
       dataIndex: 'percent',
       ellipsis: true,
       render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
-      width: 156,
+      width: 120,
     },
     {
       title: '已消耗工时(人天)',
       dataIndex: 'consumed',
       ellipsis: true,
       render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
-      width: 143,
+      width: 120,
     },
     {
       title: '剩余预计工时(人天)',
       dataIndex: 'left',
       ellipsis: true,
       render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
-      width: 156,
+      width: 130,
     },
     {
       title: '总计划工时(人天)',
       dataIndex: 'estimate',
       ellipsis: true,
       render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
-      width: 143,
+      width: 120,
     },
     {
       title: '已消耗工时占比(%)',
       dataIndex: 'consumedper',
       ellipsis: true,
       render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
-      width: 155,
+      width: 120,
     },
     {
       title: '现场+远程人数',
@@ -111,15 +111,44 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
     }
   }, [dataInfo]);
 
+  const clickRow = async (record: any) => {
+    try {
+      const res: any = await request.post('/zzyDashboard-d1d7', {
+        project: record.project,
+      });
+      const dataList = res
+        ? (res?.data || []).map((i: any) => {
+            return { ...i, consumed: Number(i?.consumed || 0) };
+          })
+        : [];
+      rowClick({
+        projectname: record.projectname,
+        dataList: dataList,
+      });
+    } catch (error) {
+      console.error(error);
+      rowClick({
+        projectname: record.projectname,
+        dataList: [],
+      });
+    }
+  };
   return (
     <Table
+      onRow={record => {
+        return {
+          onClick: () => {
+            clickRow(record);
+          }, // 点击行
+        };
+      }}
       rowKey="name"
       bordered
       loading={loading}
       columns={columns}
       dataSource={data}
       pagination={false}
-      scroll={{ y: 380 }}
+      scroll={{ y: 400 }}
     />
   );
 };

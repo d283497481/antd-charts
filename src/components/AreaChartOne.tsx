@@ -21,7 +21,7 @@ export const AreaChartOne = ({ searchTime }: any) => {
               };
             })
           : [];
-        list = groupBy(list, 'role', 'date', searchTime);
+        // list = groupBy(list, 'role', 'date', searchTime);
         setData(list);
       } catch (error) {
         console.error(error);

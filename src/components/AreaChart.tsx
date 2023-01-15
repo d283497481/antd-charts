@@ -20,7 +20,7 @@ export const AreaChart = ({ searchTime }: any) => {
               };
             })
           : [];
-        list = groupBy(list, 'role', 'ndate', searchTime);
+        // list = groupBy(list, 'role', 'ndate', searchTime);
 
         setData(list);
       } catch (error) {

@@ -7,7 +7,7 @@ import {
   AreaChartTwo,
   AreaChartOne,
   AreaChart,
-  DualAxesChart,
+  // DualAxesChart,
 } from '../components';
 import request from '../components/dashboard/request';
 import dayjs from 'dayjs';
@@ -98,9 +98,9 @@ const IndexTwo = () => {
     options,
     placeholder: '请选择',
   };
-  const dataInfo = options.filter((item: any) =>
-    (value || oldValue).includes(item.value)
-  );
+  // const dataInfo = options.filter((item: any) =>
+  //   (value || oldValue).includes(item.value)
+  // );
   return (
     <div className="flex flex-col items-center">
       <span className="flex text-xl font-bold mt-5">
@@ -127,35 +127,35 @@ const IndexTwo = () => {
         <Card
           className="m-3 min-w-[48%]"
           maxW="lg"
-          header={<DashCardHeader title="项目人力情况分布（按项目）" />}
+          header={<DashCardHeader title="项目人力情况分布按角色" />}
+        >
+          <AreaChartOne
+            searchTime={{ ...searchTime, role: roleValue.join(',') }}
+          />
+        </Card>
+        <Card
+          className="m-3 min-w-[48%]"
+          maxW="lg"
+          header={<DashCardHeader title="项目人力情况分布按项目" />}
         >
           <AreaChartTwo searchTime={searchTime} project={value} />
         </Card>
+      </div>
+      {/* area charts */}
+      <div className="flex mt-2 w-full px-5">
+        {/* <Card
+          className="m-3 min-w-[48%]"
+          maxW="lg"
+          header={<DashCardHeader title="项目人力投入" />}
+        >
+          <DualAxesChart dataInfo={dataInfo} searchTime={searchTime} />
+        </Card> */}
         <Card
           className="m-3 min-w-[48%]"
           maxW="lg"
           header={<DashCardHeader title="空闲人员按角色分布" />}
         >
           <AreaChart
-            searchTime={{ ...searchTime, role: roleValue.join(',') }}
-          />
-        </Card>
-      </div>
-      {/* area charts */}
-      <div className="flex mt-2 w-full px-5">
-        <Card
-          className="m-3 min-w-[48%]"
-          maxW="lg"
-          header={<DashCardHeader title="项目人力投入" />}
-        >
-          <DualAxesChart dataInfo={dataInfo} searchTime={searchTime} />
-        </Card>
-        <Card
-          className="m-3 min-w-[48%]"
-          maxW="lg"
-          header={<DashCardHeader title="项目人力情况分布（按角色）" />}
-        >
-          <AreaChartOne
             searchTime={{ ...searchTime, role: roleValue.join(',') }}
           />
         </Card>

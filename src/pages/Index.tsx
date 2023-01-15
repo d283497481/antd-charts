@@ -9,6 +9,8 @@ import {
   TableListTotal,
   MultiLineChart,
   TableList,
+  PieChart,
+  TableListPie,
 } from '../components';
 import request from '../components/dashboard/request';
 import dayjs from 'dayjs';
@@ -23,6 +25,7 @@ const Index = () => {
   const [form] = Form.useForm();
   const [oldValue, setOldValue] = useState<string[]>([]); //项目选择
   const [value, setValue] = useState<string[]>([]); //项目选择
+  const [rowInfo, setRowInfo] = useState<any>({}); //项目选择
 
   const [searchTime, setSearchTime] = useState<any>({
     from: initialValues.dateTime[0].format('YYYY-MM-DD'),
@@ -153,9 +156,39 @@ const Index = () => {
           maxW="lg"
           header={<DashCardHeader title="项目人力规划与预计" />}
         >
-          <TableListTotal dataInfo={dataInfo} searchTime={searchTime} />
+          <TableListTotal
+            dataInfo={dataInfo}
+            searchTime={searchTime}
+            rowClick={(val: any) => setRowInfo(val)}
+          />
         </Card>
       </div>
+      {rowInfo?.projectname && (
+        <div className="flex mt-2 w-full px-5">
+          <Card
+            maxW="lg"
+            className="m-3 min-w-[48%] "
+            header={
+              <DashCardHeader
+                title={`${rowInfo?.projectname}项目已消耗人力分析`}
+              />
+            }
+          >
+            <PieChart dataInfo={rowInfo?.dataList || []} />
+          </Card>
+          <Card
+            maxW="lg"
+            className="m-3 min-w-[48%]"
+            header={
+              <DashCardHeader
+                title={`${rowInfo?.projectname}项目已消耗人力数据表格`}
+              />
+            }
+          >
+            <TableListPie dataInfo={rowInfo?.dataList || []} />
+          </Card>
+        </div>
+      )}
     </div>
   );
 };

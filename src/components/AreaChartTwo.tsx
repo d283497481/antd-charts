@@ -22,7 +22,7 @@ export const AreaChartTwo = ({ searchTime, project }: any) => {
               });
             }
           });
-        list = groupBy(list, 'projectname', 'date', searchTime);
+        // list = groupBy(list, 'projectname', 'date', searchTime);
         setData(list);
       } catch (error) {
         console.error(error);
