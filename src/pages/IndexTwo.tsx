@@ -72,7 +72,6 @@ const IndexTwo = () => {
   const changeTime = (rangeValue: any) => {
     console.log(rangeValue);
     setSearchTime({
-      ...searchTime,
       from: rangeValue[0].format('YYYY-MM-DD'),
       to: rangeValue[1].format('YYYY-MM-DD'),
     });
@@ -89,7 +88,7 @@ const IndexTwo = () => {
   const onSearch = () => {
     const values = form.getFieldValue('project') ?? oldValue;
     const valueRole = form.getFieldValue('roleList') ?? defaultRoleList;
-    setValue(values);
+    setValue(values?.length < 1 ? oldValue : values);
     setRoleValue(valueRole);
   };
   const selectProps: SelectProps = {

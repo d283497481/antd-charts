@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-export const TableListPie = ({ dataInfo }: any) => {
+export const TableListPie = memo(({ dataInfo }: any) => {
   const columns: ColumnsType<any> = [
     {
       title: '角色',
@@ -37,4 +37,4 @@ export const TableListPie = ({ dataInfo }: any) => {
       pagination={false}
     />
   );
-};
+});

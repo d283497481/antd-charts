@@ -9,9 +9,9 @@ import {
   TableListTotal,
   MultiLineChart,
   TableList,
-  PieChart,
-  TableListPie,
+  TotalChildren,
 } from '../components';
+import { MyProvider } from '../components/dashboard/context';
 import request from '../components/dashboard/request';
 import dayjs from 'dayjs';
 // import data from '../components/mock/d1';
@@ -25,7 +25,6 @@ const Index = () => {
   const [form] = Form.useForm();
   const [oldValue, setOldValue] = useState<string[]>([]); //项目选择
   const [value, setValue] = useState<string[]>([]); //项目选择
-  const [rowInfo, setRowInfo] = useState<any>({}); //项目选择
 
   const [searchTime, setSearchTime] = useState<any>({
     from: initialValues.dateTime[0].format('YYYY-MM-DD'),
@@ -52,14 +51,6 @@ const Index = () => {
             };
           })
         : [];
-      // const list = data.map((item: any) => {
-      //   values.push(item?.id);
-      //   return {
-      //     ...(item || {}),
-      //     label: item?.name,
-      //     value: item?.id,
-      //   };
-      // });
       setOldValue(values);
       setValue(values);
       setOptions(list);
@@ -84,7 +75,7 @@ const Index = () => {
   };
   const onSearch = () => {
     const values = form.getFieldValue('project') ?? oldValue;
-    setValue(values);
+    setValue(values?.length < 1 ? oldValue : values);
   };
   const selectProps: SelectProps = {
     mode: 'multiple',
@@ -131,7 +122,7 @@ const Index = () => {
           <ColumnChart project={value} />
         </Card>
       </div>
-      {dataInfo?.length === 1 && (
+      {dataInfo?.length === 1 ? (
         <div className="flex mt-2 w-full px-5">
           <Card
             maxW="lg"
@@ -148,47 +139,14 @@ const Index = () => {
             <TableList dataInfo={dataInfo} searchTime={searchTime} />
           </Card>
         </div>
+      ) : (
+        <></>
       )}
       {/* area charts */}
-      <div className="flex mt-2 w-full px-5">
-        <Card
-          className="m-3 min-w-[100%]"
-          maxW="lg"
-          header={<DashCardHeader title="项目人力规划与预计" />}
-        >
-          <TableListTotal
-            dataInfo={dataInfo}
-            searchTime={searchTime}
-            rowClick={(val: any) => setRowInfo(val)}
-          />
-        </Card>
-      </div>
-      {rowInfo?.projectname && (
-        <div className="flex mt-2 w-full px-5">
-          <Card
-            maxW="lg"
-            className="m-3 min-w-[48%] "
-            header={
-              <DashCardHeader
-                title={`${rowInfo?.projectname}项目已消耗人力分析`}
-              />
-            }
-          >
-            <PieChart dataInfo={rowInfo?.dataList || []} />
-          </Card>
-          <Card
-            maxW="lg"
-            className="m-3 min-w-[48%]"
-            header={
-              <DashCardHeader
-                title={`${rowInfo?.projectname}项目已消耗人力数据表格`}
-              />
-            }
-          >
-            <TableListPie dataInfo={rowInfo?.dataList || []} />
-          </Card>
-        </div>
-      )}
+      <MyProvider>
+        <TableListTotal dataInfo={dataInfo} searchTime={searchTime} />
+        <TotalChildren />
+      </MyProvider>
     </div>
   );
 };

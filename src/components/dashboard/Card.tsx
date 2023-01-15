@@ -17,7 +17,7 @@ export const Card: FC<CardProps> = ({ children, maxW, className, header }) => {
   return (
     <div className={`relative max-w-${maxW}  ${className}`}>
       {header}
-      <span style={{ position: 'absolute', top: '10px', right: '10px' }}>
+      <span style={{ position: 'absolute', top: '6px', right: '10px' }}>
         {!full && (
           <Tooltip title="全屏">
             <FullscreenOutlined

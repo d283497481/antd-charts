@@ -1,6 +1,7 @@
+import React, { memo } from 'react';
 import { Pie } from '@ant-design/plots';
 
-export const PieChart = ({ dataInfo }: any) => {
+export const PieChart = memo(({ dataInfo }: any) => {
   const config = {
     appendPadding: 10,
     data: dataInfo,
@@ -17,4 +18,4 @@ export const PieChart = ({ dataInfo }: any) => {
     ],
   };
   return <Pie {...config} />;
-};
+});

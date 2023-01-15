@@ -10,3 +10,4 @@ export * from './AreaChart';
 export * from './DualAxesChart';
 export * from './PieChart';
 export * from './TableListPie';
+export * from './TotalChildren';

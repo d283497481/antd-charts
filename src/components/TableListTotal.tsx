@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, memo } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { Card, DashCardHeader } from '../components';
 import request from './dashboard/request';
+import { MyContext } from './dashboard/context';
 
-export const TableListTotal = ({ dataInfo, searchTime, rowClick }: any) => {
+export const TableListTotal = memo(({ dataInfo, searchTime }: any) => {
+  const { dispatch } = useContext(MyContext);
   const columns: ColumnsType<any> = [
     {
       title: '项目名称',
@@ -105,6 +108,11 @@ export const TableListTotal = ({ dataInfo, searchTime, rowClick }: any) => {
       const getApi = async () => {
         const res = await Promise.all(postApi);
         setData(res);
+        dispatch({
+          type: 'add',
+          projectname: null,
+          dataList: [],
+        });
         setLoading(false);
       };
       getApi();
@@ -114,41 +122,52 @@ export const TableListTotal = ({ dataInfo, searchTime, rowClick }: any) => {
   const clickRow = async (record: any) => {
     try {
       const res: any = await request.post('/zzyDashboard-d1d7', {
-        project: record.project,
+        project: record.id,
       });
-      const dataList = res
-        ? (res?.data || []).map((i: any) => {
-            return { ...i, consumed: Number(i?.consumed || 0) };
-          })
-        : [];
-      rowClick({
-        projectname: record.projectname,
+      const dataList =
+        res && res?.data?.[0]
+          ? res?.data?.map((i: any) => {
+              return { ...i, consumed: Number(i?.consumed || 0) };
+            })
+          : [];
+      dispatch({
+        type: 'add',
+        projectname: record.name,
         dataList: dataList,
       });
     } catch (error) {
       console.error(error);
-      rowClick({
+      dispatch({
+        type: 'add',
         projectname: record.projectname,
         dataList: [],
       });
     }
   };
   return (
-    <Table
-      onRow={record => {
-        return {
-          onClick: () => {
-            clickRow(record);
-          }, // 点击行
-        };
-      }}
-      rowKey="name"
-      bordered
-      loading={loading}
-      columns={columns}
-      dataSource={data}
-      pagination={false}
-      scroll={{ y: 400 }}
-    />
+    <div className="flex mt-2 w-full px-5">
+      <Card
+        className="m-3 min-w-[100%]"
+        maxW="lg"
+        header={<DashCardHeader title="项目人力规划与预计" />}
+      >
+        <Table
+          onRow={record => {
+            return {
+              onClick: () => {
+                clickRow(record);
+              }, // 点击行
+            };
+          }}
+          rowKey="name"
+          bordered
+          loading={loading}
+          columns={columns}
+          dataSource={data}
+          pagination={false}
+          scroll={{ y: 400 }}
+        />
+      </Card>
+    </div>
   );
-};
+});

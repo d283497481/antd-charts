@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { Line } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
 import { groupBy } from './dashboard/utils';
 
-export const MultiLineChart = ({ dataInfo, searchTime }: any) => {
+export const MultiLineChart = memo(({ dataInfo, searchTime }: any) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -69,4 +69,4 @@ export const MultiLineChart = ({ dataInfo, searchTime }: any) => {
     // },
   };
   return !loading ? <Line {...config} /> : <Skeleton />;
-};
+});

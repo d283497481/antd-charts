@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import request from './dashboard/request';
 
-export const TableList = ({ dataInfo, searchTime }: any) => {
+export const TableList = memo(({ dataInfo, searchTime }: any) => {
   const columns: ColumnsType<any> = [
     {
       title: '项目名称',
@@ -139,4 +139,4 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
       }}
     />
   );
-};
+});

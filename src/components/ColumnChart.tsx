@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Column } from '@ant-design/plots';
 import { each, groupBy } from '@antv/util';
 import request from './dashboard/request';
 import { Skeleton } from 'antd';
 
-export const ColumnChart = ({ project }: any) => {
+export const ColumnChart = memo(({ project }: any) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -258,4 +258,4 @@ export const ColumnChart = ({ project }: any) => {
   };
 
   return !loading ? <Column {...config} /> : <Skeleton />;
-};
+});
