@@ -167,7 +167,7 @@ const IndexTwo = () => {
           <DualAxesChart dataInfo={dataInfo} searchTime={searchTime} />
         </Card> */}
         <Card
-          className="m-3 min-w-[48%]"
+          className="m-3 min-w-[100%]"
           maxW="lg"
           header={<DashCardHeader title="空闲人员按角色分布" />}
         >

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Column } from '@ant-design/plots';
 import { each, groupBy } from '@antv/util';
-import request from './dashboard/request';
+import request from '../dashboard/request';
 import { Skeleton } from 'antd';
 
 export const ColumnChart = ({ project }: any) => {

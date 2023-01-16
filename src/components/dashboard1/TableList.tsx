@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import request from './dashboard/request';
+import request from '../dashboard/request';
 
 export const TableList = ({ dataInfo, searchTime }: any) => {
   const columns: ColumnsType<any> = [
@@ -24,14 +24,30 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
       width: 100,
     },
     {
-      title: '开始时间',
+      title: '计划开始时间',
       dataIndex: 'estStarted',
       ellipsis: true,
+      render: val => (val === '0000-00-00' ? '' : val),
       width: 118,
     },
     {
       title: '计划结束时间',
       dataIndex: 'deadline',
+      render: val => (val === '0000-00-00' ? '' : val),
+      ellipsis: true,
+      width: 118,
+    },
+    {
+      title: '实际开始时间',
+      dataIndex: 'realStarted',
+      ellipsis: true,
+      render: val => (val === '0000-00-00' ? '' : val),
+      width: 118,
+    },
+    {
+      title: '实际结束时间',
+      dataIndex: 'finishedDate',
+      render: val => (val === '0000-00-00' ? '' : val),
       ellipsis: true,
       width: 118,
     },
@@ -40,22 +56,22 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
       dataIndex: 'od',
       ellipsis: true,
       render: (row: any) => {
-        if (`${row}` === '3') {
-          return <Tag color="#595959">已完成</Tag>;
+        if (`${row}` === '0') {
+          return <Tag color="#135200">已完成</Tag>;
         }
         if (`${row}` === '1') {
           return <Tag color="#52c41a">已完成</Tag>;
         }
-        if (`${row}` === '2') {
-          return <Tag color="#faad14">已完成</Tag>;
+        if (`${row}` === '3') {
+          return <Tag color="#595959">待开始</Tag>;
         }
-        if (`${row}` === '0') {
-          return <Tag color="#135200">已完成</Tag>;
+        if (`${row}` === '2') {
+          return <Tag color="#faad14">进行中</Tag>;
         }
         if (`${row}` === '4') {
-          return <Tag>已完成</Tag>;
+          return <Tag>其他</Tag>;
         }
-        return '已完成';
+        return '-';
       },
       width: 140,
     },
@@ -121,7 +137,7 @@ export const TableList = ({ dataInfo, searchTime }: any) => {
       loading={loading}
       columns={columns}
       dataSource={data}
-      scroll={{ y: 400 }}
+      scroll={{ y: 444 }}
       pagination={false}
       rowClassName={(row: any) => {
         if (`${row.od}` === '3') {

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Area } from '@ant-design/plots';
 import { Skeleton } from 'antd';
-import request from './dashboard/request';
-import { groupBy } from './dashboard/utils';
+import request from '../dashboard/request';
+import { groupBy } from '../dashboard/utils';
 
 export const AreaChart = ({ searchTime }: any) => {
   const [data, setData] = useState([]);

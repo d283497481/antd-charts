@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { Card, DashCardHeader } from '../components';
-import request from './dashboard/request';
-import { MyContext } from './dashboard/context';
+import { CardTable, DashCardHeader } from '../index';
+import request from '../dashboard/request';
+import { MyContext } from '../dashboard/context';
 
 export const TableListTotal = ({ dataInfo, searchTime }: any) => {
   const { dispatch } = useContext(MyContext);
@@ -18,12 +18,14 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
       title: '开始时间',
       dataIndex: 'begin',
       ellipsis: true,
+      render: val => (val === '0000-00-00' ? '' : val),
       width: 116,
     },
     {
       title: '计划结束时间',
       dataIndex: 'end',
       ellipsis: true,
+      render: val => (val === '0000-00-00' ? '' : val),
       width: 118,
     },
     {
@@ -37,16 +39,16 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
       title: '项目进展(按工时%)',
       dataIndex: 'progress',
       ellipsis: true,
+      render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
+      width: 120,
+    },
+    {
+      title: '项目进展(按阶段%)',
+      dataIndex: 'percent',
+      ellipsis: true,
       render: val => `${Number(val || 0).toFixed(1)}%`,
       width: 120,
     },
-    // {
-    //   title: '项目进展(按阶段%)',
-    //   dataIndex: 'percent',
-    //   ellipsis: true,
-    //   render: val => `${Number(val || 0).toFixed(1)}%`,
-    //   width: 120,
-    // },
     {
       title: '已消耗工时(人天)',
       dataIndex: 'consumed',
@@ -149,7 +151,7 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
   };
   return (
     <div className="flex mt-2 w-full px-5">
-      <Card
+      <CardTable
         className="m-3 min-w-[100%]"
         maxW="lg"
         header={<DashCardHeader title="项目人力规划与预计" />}
@@ -170,7 +172,7 @@ export const TableListTotal = ({ dataInfo, searchTime }: any) => {
           pagination={false}
           scroll={{ y: 400 }}
         />
-      </Card>
+      </CardTable>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
 import { Skeleton } from 'antd';
-import request from './dashboard/request';
-import { groupBy } from './dashboard/utils';
+import request from '../dashboard/request';
+import { groupBy } from '../dashboard/utils';
 
-export const LineChart = ({ dataInfo, searchTime }: any) => {
+export const LineChartOne = ({ dataInfo, searchTime }: any) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -55,6 +55,7 @@ export const LineChart = ({ dataInfo, searchTime }: any) => {
     xField: 'date',
     yField: 'value',
     autoFit: true,
+    theme: 'custom-theme',
     seriesField: 'name',
     yAxis: {
       label: {

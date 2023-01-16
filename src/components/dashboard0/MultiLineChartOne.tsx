@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
 import { Skeleton } from 'antd';
-import request from './dashboard/request';
-import { groupBy } from './dashboard/utils';
+import request from '../dashboard/request';
+import { groupBy } from '../dashboard/utils';
 
-export const MultiLineChart = ({ dataInfo, searchTime }: any) => {
+export const MultiLineChartOne = ({ dataInfo, searchTime }: any) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,6 +45,7 @@ export const MultiLineChart = ({ dataInfo, searchTime }: any) => {
     data,
     xField: 'date',
     yField: 'value',
+    theme: 'custom-theme',
     autoFit: true,
     seriesField: 'stagename',
     smooth: true,

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Pie } from '@ant-design/plots';
 
-export const PieChart = ({ dataInfo }: any) => {
+export const PieChartOne = ({ dataInfo }: any) => {
   const config = {
     appendPadding: 10,
+    theme: 'custom-theme',
     data: dataInfo,
     angleField: 'consumed',
     colorField: 'role',

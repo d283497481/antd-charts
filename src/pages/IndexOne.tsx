@@ -22,7 +22,7 @@ const { RangePicker } = DatePicker;
 const initialValues: any = {
   dateTime: [dayjs().subtract(7, 'day'), dayjs()], // 在职
 };
-const Index = () => {
+const IndexOne = () => {
   const [form] = Form.useForm();
   const [oldValue, setOldValue] = useState<string[]>([]); //项目选择
   const [value, setValue] = useState<string[]>([]); //项目选择
@@ -151,4 +151,4 @@ const Index = () => {
     </div>
   );
 };
-export default Index;
+export default IndexOne;

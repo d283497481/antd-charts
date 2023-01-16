@@ -4,8 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev:0": "vite --mode index_0",
+    "dev:1": "vite --mode index_1",
+    "dev:2": "vite --mode index_2",
+    "build:0": "tsc && vite build --mode index_0",
+    "build:1": "tsc && vite build --mode index_1",
+    "build:2": "tsc && vite build --mode index_2",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,8 +1,14 @@
 import React, { useContext } from 'react';
-import { Card, DashCardHeader, PieChart, TableListPie } from '../components';
-import { MyContext } from './dashboard/context';
+import {
+  Card,
+  CardTable,
+  DashCardHeader,
+  PieChartOne,
+  TableListPieOne,
+} from '../index';
+import { MyContext } from '../dashboard/context';
 
-export const TotalChildren = () => {
+export const TotalChildrenOne = () => {
   const { state } = useContext(MyContext);
   const rowInfo = state;
   console.log(rowInfo);
@@ -15,9 +21,9 @@ export const TotalChildren = () => {
           <DashCardHeader title={`${rowInfo?.projectname}项目已消耗人力分析`} />
         }
       >
-        <PieChart dataInfo={rowInfo?.dataList || []} />
+        <PieChartOne dataInfo={rowInfo?.dataList || []} />
       </Card>
-      <Card
+      <CardTable
         maxW="lg"
         className="m-3 min-w-[48%]"
         header={
@@ -26,8 +32,8 @@ export const TotalChildren = () => {
           />
         }
       >
-        <TableListPie dataInfo={rowInfo?.dataList || []} />
-      </Card>
+        <TableListPieOne dataInfo={rowInfo?.dataList || []} />
+      </CardTable>
     </div>
   ) : (
     <></>

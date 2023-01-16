@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DualAxes } from '@ant-design/plots';
 import { Skeleton } from 'antd';
-import request from './dashboard/request';
+import request from '../dashboard/request';
 
 export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
   const [loading, setLoading] = useState(true);
@@ -62,6 +62,7 @@ export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
   const config = {
     data: [uvBillData, transformData],
     xField: 'porjectname',
+    theme: 'custom-theme',
     yField: ['value', 'total'],
     xAxis: {
       label: {
