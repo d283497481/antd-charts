@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
-export const TableListPie = memo(({ dataInfo }: any) => {
+export const TableListPie = ({ dataInfo }: any) => {
   const columns: ColumnsType<any> = [
     {
       title: '角色',
@@ -17,7 +17,7 @@ export const TableListPie = memo(({ dataInfo }: any) => {
     },
     {
       title: '计划人力(人天)',
-      dataIndex: 'estimte',
+      dataIndex: 'estimate',
       render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
       width: 140,
     },
@@ -37,4 +37,4 @@ export const TableListPie = memo(({ dataInfo }: any) => {
       pagination={false}
     />
   );
-});
+};

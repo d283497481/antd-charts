@@ -5,3 +5,7 @@
   background: #fff;
   padding: 24px;
 }
+
+.fullscreen-enabled .ant-table-body {
+  max-height: 85vh !important;
+}

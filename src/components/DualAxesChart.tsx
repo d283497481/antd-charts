@@ -1,9 +1,9 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DualAxes } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
 
-export const DualAxesChart = memo(({ dataInfo = [], searchTime }: any) => {
+export const DualAxesChart = ({ dataInfo = [], searchTime }: any) => {
   const [loading, setLoading] = useState(true);
   const [uvBillData, setUvBillData] = useState<any[]>([]);
   const [transformData, setTransformData] = useState<any[]>([]);
@@ -96,4 +96,4 @@ export const DualAxesChart = memo(({ dataInfo = [], searchTime }: any) => {
     ],
   };
   return !loading ? <DualAxes {...config} /> : <Skeleton />;
-});
+};

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
 import { groupBy } from './dashboard/utils';
 
-export const LineChart = memo(({ dataInfo, searchTime }: any) => {
+export const LineChart = ({ dataInfo, searchTime }: any) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -76,4 +76,4 @@ export const LineChart = memo(({ dataInfo, searchTime }: any) => {
     // },
   };
   return !loading ? <Line {...config} /> : <Skeleton />;
-});
+};

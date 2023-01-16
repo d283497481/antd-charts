@@ -1,10 +1,10 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect } from 'react';
 import { Area } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
 import { groupBy } from './dashboard/utils';
 
-export const AreaChartTwo = memo(({ searchTime, project }: any) => {
+export const AreaChartTwo = ({ searchTime, project }: any) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -22,7 +22,7 @@ export const AreaChartTwo = memo(({ searchTime, project }: any) => {
               });
             }
           });
-        // list = groupBy(list, 'projectname', 'date', searchTime);
+        list = groupBy(list, 'projectname', 'ndate', searchTime);
         setData(list);
       } catch (error) {
         console.error(error);
@@ -36,7 +36,7 @@ export const AreaChartTwo = memo(({ searchTime, project }: any) => {
   }, [searchTime, project]);
   const config = {
     data,
-    xField: 'date',
+    xField: 'ndate',
     yField: 'value',
     isStack: true,
     smooth: true,
@@ -45,7 +45,8 @@ export const AreaChartTwo = memo(({ searchTime, project }: any) => {
       start: 0.1,
       end: 0.9,
     },
+    theme: 'custom-theme',
   };
 
   return !loading ? <Area {...config} /> : <Skeleton />;
-});
+};

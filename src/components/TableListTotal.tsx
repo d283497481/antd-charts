@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext, memo } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Card, DashCardHeader } from '../components';
 import request from './dashboard/request';
 import { MyContext } from './dashboard/context';
 
-export const TableListTotal = memo(({ dataInfo, searchTime }: any) => {
+export const TableListTotal = ({ dataInfo, searchTime }: any) => {
   const { dispatch } = useContext(MyContext);
   const columns: ColumnsType<any> = [
     {
@@ -27,7 +27,7 @@ export const TableListTotal = memo(({ dataInfo, searchTime }: any) => {
       width: 118,
     },
     {
-      title: '当期进展(工时)',
+      title: '当期进展(人天)',
       ellipsis: true,
       dataIndex: 'curconsumed',
       render: val => `${(Number(val || 0) / 8).toFixed(1)}`,
@@ -37,16 +37,16 @@ export const TableListTotal = memo(({ dataInfo, searchTime }: any) => {
       title: '项目进展(按工时%)',
       dataIndex: 'progress',
       ellipsis: true,
-      render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
+      render: val => `${Number(val || 0).toFixed(1)}%`,
       width: 120,
     },
-    {
-      title: '项目进展(按阶段%)',
-      dataIndex: 'percent',
-      ellipsis: true,
-      render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
-      width: 120,
-    },
+    // {
+    //   title: '项目进展(按阶段%)',
+    //   dataIndex: 'percent',
+    //   ellipsis: true,
+    //   render: val => `${Number(val || 0).toFixed(1)}%`,
+    //   width: 120,
+    // },
     {
       title: '已消耗工时(人天)',
       dataIndex: 'consumed',
@@ -127,7 +127,10 @@ export const TableListTotal = memo(({ dataInfo, searchTime }: any) => {
       const dataList =
         res && res?.data?.[0]
           ? res?.data?.map((i: any) => {
-              return { ...i, consumed: Number(i?.consumed || 0) };
+              return {
+                ...i,
+                consumed: Number(i.consumed || 0),
+              };
             })
           : [];
       dispatch({
@@ -170,4 +173,4 @@ export const TableListTotal = memo(({ dataInfo, searchTime }: any) => {
       </Card>
     </div>
   );
-});
+};

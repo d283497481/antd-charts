@@ -13,21 +13,7 @@ import request from '../components/dashboard/request';
 import dayjs from 'dayjs';
 
 const { RangePicker } = DatePicker;
-const selectOption = [
-  { label: 'AE', value: 'AE' },
-  { label: 'PM', value: 'PM' },
-  { label: 'SE', value: 'SE' },
-  { label: 'TAG', value: 'TAG' },
-  { label: 'TPS', value: 'TPS' },
-  { label: '软件工程师', value: '软件工程师' },
-];
-const defaultRoleList = ['AE', 'PM', 'SE', 'TAG', 'TPS', '软件工程师'];
-const selectRoleProps: SelectProps = {
-  mode: 'multiple',
-  style: { width: '120px' },
-  options: selectOption,
-  placeholder: '请选择',
-};
+
 const initialValues: any = {
   dateTime: [dayjs(), dayjs().add(30, 'day')],
 };
@@ -36,11 +22,45 @@ const IndexTwo = () => {
   const [oldValue, setOldValue] = useState<string[]>([]); //项目选择
   const [value, setValue] = useState<string[]>([]); //项目选择
 
-  const [roleValue, setRoleValue] = useState<string[]>(defaultRoleList); //角色选择
   const [searchTime, setSearchTime] = useState<any>({
     from: initialValues.dateTime[0].format('YYYY-MM-DD'),
     to: initialValues.dateTime[1].format('YYYY-MM-DD'),
   });
+  const [defaultRoleList, setDefaultRoleList] = useState<string[]>([]); //项目选择
+  const [roleOptions, setRoleOptions] = useState<any>([]);
+  const selectRoleProps: SelectProps = {
+    mode: 'multiple',
+    style: { width: '120px' },
+    options: roleOptions,
+    placeholder: '请选择',
+  };
+  const [roleValue, setRoleValue] = useState<string[]>([]); //角色选择
+  useEffect(() => {
+    const getDetail = async () => {
+      const values: any = [];
+      let res: any = [];
+      try {
+        res = await request.get('/zzyDashboard-rolelist');
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+      }
+      const list = res
+        ? (res?.data ?? []).map((item: any) => {
+            values.push(item?.role || ' ');
+            return {
+              ...(item || {}),
+              label: item?.role || '空',
+              value: item?.role || ' ',
+            };
+          })
+        : [];
+      setRoleValue(values);
+      setDefaultRoleList(values);
+      setRoleOptions(list);
+    };
+    getDetail();
+  }, []);
   const [options, setOptions] = useState<any>([]);
   useEffect(() => {
     const getDetail = async () => {
@@ -97,9 +117,6 @@ const IndexTwo = () => {
     options,
     placeholder: '请选择',
   };
-  // const dataInfo = options.filter((item: any) =>
-  //   (value || oldValue).includes(item.value)
-  // );
   return (
     <div className="flex flex-col items-center">
       <span className="flex text-xl font-bold mt-5">

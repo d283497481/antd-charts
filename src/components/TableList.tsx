@@ -1,9 +1,9 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import request from './dashboard/request';
 
-export const TableList = memo(({ dataInfo, searchTime }: any) => {
+export const TableList = ({ dataInfo, searchTime }: any) => {
   const columns: ColumnsType<any> = [
     {
       title: '项目名称',
@@ -15,7 +15,7 @@ export const TableList = memo(({ dataInfo, searchTime }: any) => {
       title: '阶段名称',
       dataIndex: 'stagename',
       ellipsis: true,
-      width: 200,
+      width: 120,
     },
     {
       title: '任务名称',
@@ -41,21 +41,21 @@ export const TableList = memo(({ dataInfo, searchTime }: any) => {
       ellipsis: true,
       render: (row: any) => {
         if (`${row}` === '3') {
-          return <Tag color="#595959">未开始</Tag>;
+          return <Tag color="#595959">已完成</Tag>;
         }
         if (`${row}` === '1') {
-          return <Tag color="#52c41a">已完成(本期)</Tag>;
+          return <Tag color="#52c41a">已完成</Tag>;
         }
         if (`${row}` === '2') {
-          return <Tag color="#faad14">正在进行中</Tag>;
+          return <Tag color="#faad14">已完成</Tag>;
         }
         if (`${row}` === '0') {
-          return <Tag color="#135200">已完成(本期之前)</Tag>;
+          return <Tag color="#135200">已完成</Tag>;
         }
         if (`${row}` === '4') {
-          return <Tag>其他</Tag>;
+          return <Tag>已完成</Tag>;
         }
-        return '-';
+        return '已完成';
       },
       width: 140,
     },
@@ -82,7 +82,7 @@ export const TableList = memo(({ dataInfo, searchTime }: any) => {
       title: '任务进展(%)',
       ellipsis: true,
       dataIndex: 'progress',
-      render: val => `${(Number(val || 0) * 100).toFixed(2)}%`,
+      render: val => `${(Number(val || 0) * 100).toFixed(1)}%`,
       width: 118,
     },
     {
@@ -105,6 +105,7 @@ export const TableList = memo(({ dataInfo, searchTime }: any) => {
         setData(res?.data || []);
       } catch (error) {
         console.error(error);
+
         setData([]);
       }
       setLoading(false);
@@ -139,4 +140,4 @@ export const TableList = memo(({ dataInfo, searchTime }: any) => {
       }}
     />
   );
-});
+};

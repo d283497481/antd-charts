@@ -1,10 +1,10 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect } from 'react';
 import { Area } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from './dashboard/request';
 import { groupBy } from './dashboard/utils';
 
-export const AreaChartOne = memo(({ searchTime }: any) => {
+export const AreaChartOne = ({ searchTime }: any) => {
   const [data, setData] = useState([]);
 
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ export const AreaChartOne = memo(({ searchTime }: any) => {
               };
             })
           : [];
-        // list = groupBy(list, 'role', 'date', searchTime);
+        list = groupBy(list, 'role', 'ndate', searchTime);
         setData(list);
       } catch (error) {
         console.error(error);
@@ -35,7 +35,7 @@ export const AreaChartOne = memo(({ searchTime }: any) => {
   }, [searchTime]);
   const config = {
     data,
-    xField: 'date',
+    xField: 'ndate',
     yField: 'value',
     seriesField: 'role',
     isStack: true,
@@ -44,7 +44,8 @@ export const AreaChartOne = memo(({ searchTime }: any) => {
       start: 0.1,
       end: 0.9,
     },
+    theme: 'custom-theme',
   };
 
   return !loading ? <Area {...config} /> : <Skeleton />;
-});
+};
