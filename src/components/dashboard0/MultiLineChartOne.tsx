@@ -10,9 +10,11 @@ export const MultiLineChartOne = ({ dataInfo, searchTime }: any) => {
 
   useEffect(() => {
     setLoading(true);
-    const getDetail = async (project: string) => {
+    const getDetail = async () => {
       try {
-        const res: any = await request.post('/zzyDashboard-d1d2', { project });
+        const res: any = await request.post('/zzyDashboard-d1d2', {
+          project: dataInfo?.id,
+        });
         let total: any = {};
         const dataInfos: any = res
           ? (res?.data || []).map((item: any) => {
@@ -38,7 +40,7 @@ export const MultiLineChartOne = ({ dataInfo, searchTime }: any) => {
       setLoading(false);
     };
     if (dataInfo) {
-      getDetail(dataInfo[0]?.id);
+      getDetail();
     }
   }, [dataInfo]);
   const config = {
@@ -48,7 +50,6 @@ export const MultiLineChartOne = ({ dataInfo, searchTime }: any) => {
     theme: 'custom-theme',
     autoFit: true,
     seriesField: 'stagename',
-    smooth: true,
     xAxis: {
       type: 'time',
     },
@@ -63,11 +64,6 @@ export const MultiLineChartOne = ({ dataInfo, searchTime }: any) => {
           `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, s => `${s},`),
       },
     },
-    // point: {
-    //   shape: () => {
-    //     return 'circle';
-    //   },
-    // },
   };
   return !loading ? <Line {...config} /> : <Skeleton />;
 };

@@ -10,6 +10,7 @@ import {
   // DualAxesChart,
 } from '../components';
 import request from '../components/dashboard/request';
+import locale from 'antd/es/date-picker/locale/zh_CN';
 import dayjs from 'dayjs';
 
 const { RangePicker } = DatePicker;
@@ -122,7 +123,7 @@ const IndexTwo = () => {
       <span className="flex text-xl font-bold mt-5">
         <Form initialValues={initialValues} layout="inline" form={form}>
           <Form.Item name="dateTime" label="时间范围">
-            <RangePicker onChange={changeTime} />
+            <RangePicker onChange={changeTime} locale={locale} />
           </Form.Item>
           <Form.Item name="project" label="选择项目">
             <Select {...selectProps} />

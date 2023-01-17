@@ -112,22 +112,21 @@ export const TableListOne = ({ dataInfo, searchTime }: any) => {
   const [data, setData] = useState<any[]>([]);
   useEffect(() => {
     setLoading(true);
-    const getDetail = async (project: string) => {
+    const getDetail = async () => {
       try {
         const res: any = await request.post('/zzyDashboard-d1d3', {
           ...searchTime,
-          project,
+          project: dataInfo?.id,
         });
         setData(res?.data || []);
       } catch (error) {
         console.error(error);
-
         setData([]);
       }
       setLoading(false);
     };
     if (dataInfo) {
-      getDetail(dataInfo[0]?.id);
+      getDetail();
     }
   }, [dataInfo]);
 
