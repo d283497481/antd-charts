@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from '../dashboard/request';
+// import dayjs from 'dayjs';
 
 export const LineChartOne = ({ dataInfo }: any) => {
   const [data, setData] = useState<any[]>([]);
@@ -22,22 +23,11 @@ export const LineChartOne = ({ dataInfo }: any) => {
             let value = Number(item?.estimate || 0) - total;
             // value = value < 0 ? 0 : value;
             list.push({
-              date: dataInfo?.date,
+              date: item.date,
               name: dataInfo?.name,
               value,
-              estimate: Number(item?.estimate || 0),
             });
           }
-        });
-        list.push({
-          date: dataInfo?.begin ?? list?.[0]?.date,
-          name: '参考',
-          value: list?.[0]?.estimate ?? 0,
-        });
-        list.push({
-          date: dataInfo?.end ?? list?.[list.length - 1]?.date,
-          name: '参考',
-          value: 0,
         });
         setData(list);
       } catch (error) {

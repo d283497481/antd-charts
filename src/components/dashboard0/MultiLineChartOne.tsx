@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Line } from '@ant-design/plots';
 import { Skeleton } from 'antd';
 import request from '../dashboard/request';
-import { groupBy } from '../dashboard/utils';
+// import { groupBy } from '../dashboard/utils';
 
 export const MultiLineChartOne = ({ dataInfo, searchTime }: any) => {
   const [data, setData] = useState([]);
@@ -16,22 +16,25 @@ export const MultiLineChartOne = ({ dataInfo, searchTime }: any) => {
           project: dataInfo?.id,
         });
         let total: any = {};
-        const dataInfos: any = res
-          ? (res?.data || []).map((item: any) => {
+        const list: any = [];
+        res &&
+          res?.data?.[0] &&
+          res?.data.map((item: any) => {
+            if (item?.date && item?.date !== '0000-00-00') {
               if (!total[item?.stagename]) {
                 total[item?.stagename] = Number(item?.consumed || 0);
               } else {
                 total[item?.stagename] += Number(item?.consumed || 0);
               }
 
-              return {
-                date: item?.date,
+              list.push({
+                date: item.date,
                 stagename: item?.stagename,
                 value: Number(item?.estimate || 0) - total[item?.stagename],
-              };
-            })
-          : [];
-        const list: any = groupBy(dataInfos, 'stagename', 'date', searchTime);
+              });
+            }
+          });
+        // const list: any = groupBy(dataInfos, 'stagename', 'date', searchTime);
         setData(list);
       } catch (error) {
         console.error(error);

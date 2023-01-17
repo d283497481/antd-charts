@@ -12,8 +12,8 @@ function App() {
   registerTheme('custom-theme', ColorList);
   return (
     <ConfigProvider locale={zhCN}>
-      <Index />
-      {/* <IndexOne /> */}
+      {/* <Index /> */}
+      <IndexOne />
       {/* <IndexTwo /> */}
     </ConfigProvider>
   );

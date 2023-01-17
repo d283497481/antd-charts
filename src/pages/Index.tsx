@@ -13,7 +13,7 @@ import {
 import request from '../components/dashboard/request';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import dayjs from 'dayjs';
-import data from '../components/mock/d1';
+// import data from '../components/mock/d1';
 
 const { RangePicker } = DatePicker;
 
@@ -38,7 +38,7 @@ const Index = () => {
       } catch (error) {
         console.error(error);
       }
-      res = { data };
+      // res = { data };
       const list =
         res && res?.data
           ? res?.data?.map((item: any) => {
