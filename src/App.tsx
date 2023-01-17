@@ -10,12 +10,11 @@ import 'dayjs/locale/zh-cn';
 function App() {
   const { registerTheme } = G2;
   registerTheme('custom-theme', ColorList);
-  console.log(import.meta.env.MODE);
   return (
     <ConfigProvider locale={zhCN}>
-      {import.meta.env.MODE === 'index_0' && <Index />}
-      {import.meta.env.MODE === 'index_1' && <IndexOne />}
-      {import.meta.env.MODE === 'index_2' && <IndexTwo />}
+      <Index />
+      {/* <IndexOne /> */}
+      {/* <IndexTwo /> */}
     </ConfigProvider>
   );
 }
